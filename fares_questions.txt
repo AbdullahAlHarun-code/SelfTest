@@ -1,0 +1,57 @@
+FARES AND REGULATIONS QUESTIONS
+=================================
+
+QUESTION 1
+Type: Single Correct Answer
+Question: What is the maximum fare that can be charged for a journey within Dublin city center during peak hours?
+
+Options:
+A. €15.00
+B. €20.00
+C. €25.00
+D. No maximum limit
+Answer: D
+
+QUESTION 2
+Type: Single Correct Answer
+Question: What percentage tip is customary for taxi drivers in Ireland?
+
+Options:
+A. 5-10%
+B. 10-15%
+C. 15-20%
+D. No tip expected
+Answer: B
+
+QUESTION 3
+Type: Single Correct Answer
+Question: When must the taxi meter be switched on?
+
+Options:
+A. Only for long journeys
+B. At the start of every journey
+C. Only during peak hours
+D. Only for airport trips
+Answer: B
+
+QUESTION 4
+Type: Single Correct Answer
+Question: What is the standard waiting time charge per minute?
+
+Options:
+A. €0.30
+B. €0.50
+C. €0.75
+D. €1.00
+Answer: B
+
+QUESTION 5
+Type: Single Correct Answer
+Question: Are taxi drivers required to accept card payments?
+
+Options:
+A. Yes, always
+B. No, cash only
+C. Only for fares over €10
+D. It depends on the taxi company
+Answer: A

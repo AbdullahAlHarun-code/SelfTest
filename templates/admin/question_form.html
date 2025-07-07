@@ -1,0 +1,479 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% load taxi_extras %}
+
+{% block title %}
+{% if question %}Edit Question{% else %}Add New Question{% endif %} - Taxi Management System
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        {% if question %}
+            <i class="fas fa-edit me-2"></i>Edit Question
+        {% else %}
+            <i class="fas fa-plus me-2"></i>Add New Question
+        {% endif %}
+    </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="{% url 'question_list' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Questions
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <form method="post" id="questionForm">
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    {% if question %}Edit Question Details{% else %}Question Details{% endif %}
+                </h6>
+            </div>
+            <div class="card-body">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="questionText" class="form-label">Question Text *</label>
+                        <textarea class="form-control" id="questionText" name="question_text" rows="4" required>{% if question %}{{ question.question_text }}{% endif %}</textarea>
+                        <div class="form-text">Enter the complete question text</div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="questionType" class="form-label">Question Type *</label>
+                            <select class="form-select" id="questionType" name="question_type" required>
+                                <option value="single" {% if question.question_type == 'single' %}selected{% endif %}>Single Correct Answer</option>
+                                <option value="multiple" {% if question.question_type == 'multiple' %}selected{% endif %}>Multiple Correct Answers</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="categories" class="form-label">Categories</label>
+                            <select class="form-select" id="categories" name="categories" multiple="multiple" size="6" style="height: auto; min-height: 150px;">
+                                {% for category in all_categories %}
+                                    <option value="{{ category.id }}" 
+                                        {% if question and category.id in selected_category_ids %}selected{% endif %}>
+                                        {{ category.get_level|category_indent }} {{ category.name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <div class="form-text">Hold Ctrl (or Cmd on Mac) to select multiple categories</div>
+                            
+                            <!-- Hidden field to ensure category selection is posted even when none are selected -->
+                            <input type="hidden" name="has_category_field" value="1">
+                            
+                            <!-- Hidden field to store selected category IDs in case the multi-select fails -->
+                            <input type="hidden" id="backup_categories" name="backup_categories" value="">
+                            
+                            <!-- Debug display of selected categories -->
+                            <div class="mt-2 small text-muted" id="selectedCategoriesDisplay">
+                                Selected: <span id="selectedCategoriesCount">0</span>
+                                <br><small id="selectedCategoryIds"></small>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        
+        <!-- Choices Section -->
+        <div class="card shadow mt-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="m-0 font-weight-bold text-primary">Answer Choices</h6>
+                <small class="text-muted">Mark correct answers with the checkbox</small>
+            </div>
+            <div class="card-body">
+                <div id="choicesContainer">
+                    {% for choice in choices %}
+                        <div class="choice-item mb-3 p-3 border rounded" data-choice-id="{{ choice.id }}">
+                            <div class="row align-items-center">
+                                <div class="col-md-1">
+                                    <strong>{{ choice.option_label }}.</strong>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control choice-text" 
+                                           name="choice_text_{{ choice.option_label }}" 
+                                           value="{{ choice.choice_text }}" 
+                                           placeholder="Enter choice text" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input correct-choice" type="checkbox" 
+                                               name="correct_{{ choice.option_label }}" 
+                                               {% if choice.is_correct %}checked{% endif %}>
+                                        <label class="form-check-label">Correct Answer</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <!-- Default 4 choices for new questions -->
+                        {% for label in "ABCD" %}
+                            <div class="choice-item mb-3 p-3 border rounded">
+                                <div class="row align-items-center">
+                                    <div class="col-md-1">
+                                        <strong>{{ label }}.</strong>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control choice-text" 
+                                               name="choice_text_{{ label }}" 
+                                               placeholder="Enter choice text" required>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input correct-choice" type="checkbox" 
+                                                   name="correct_{{ label }}">
+                                            <label class="form-check-label">Correct Answer</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                
+                <div class="alert alert-info mt-3">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Note:</strong> For single answer questions, select only one correct choice. For multiple answer questions, you can select multiple correct choices.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Submit Buttons -->
+        <div class="card shadow mt-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'question_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>
+                        {% if question %}Update Question{% else %}Save Question{% endif %}
+                    </button>
+                </div>
+            </div>
+        </div>
+                </form> <!-- Close the form after all fields have been included -->
+        </div>
+    </div>
+    
+    <!-- Preview Section -->
+    <div class="col-lg-4">
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">Preview</h6>
+            </div>
+            <div class="card-body">
+                <div id="questionPreview">
+                    <p class="mb-3"><strong>Question:</strong></p>
+                    <p id="previewText" class="text-muted">Enter question text to see preview...</p>
+                    
+                    <div id="previewChoices" class="mt-3">
+                        <!-- Choices will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow mt-3">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">Tips</h6>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Write clear, concise questions
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Ensure all choices are plausible
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Mark correct answers appropriately
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success me-2"></i>
+                        Assign relevant categories
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .choice-item {
+        background-color: #f8f9fa;
+        transition: background-color 0.2s;
+    }
+    .choice-item:hover {
+        background-color: #e9ecef;
+    }
+    .choice-item.correct {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+    }
+    #questionPreview {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+    .preview-choice {
+        padding: 8px;
+        margin: 4px 0;
+        border-radius: 4px;
+        background-color: #f8f9fa;
+    }
+    .preview-choice.correct {
+        background-color: #d4edda;
+        border-left: 3px solid #28a745;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Live preview functionality
+function updatePreview() {
+    const questionText = document.getElementById('questionText').value;
+    const previewText = document.getElementById('previewText');
+    const previewChoices = document.getElementById('previewChoices');
+    
+    // Update question text
+    previewText.textContent = questionText || 'Enter question text to see preview...';
+    
+    // Update choices
+    previewChoices.innerHTML = '';
+    const choiceItems = document.querySelectorAll('.choice-item');
+    
+    // Count valid choices for validation feedback
+    let validChoiceCount = 0;
+    
+    choiceItems.forEach((item, index) => {
+        const label = String.fromCharCode(65 + index); // A, B, C, D
+        const textInput = item.querySelector('.choice-text');
+        const correctInput = item.querySelector('.correct-choice');
+        
+        // Highlight required fields if they're empty
+        if (textInput) {
+            if (textInput.value.trim()) {
+                textInput.classList.remove('is-invalid');
+                validChoiceCount++;
+            } else {
+                textInput.classList.add('is-invalid');
+            }
+        }
+        
+        if (textInput && textInput.value.trim()) {
+            const choiceDiv = document.createElement('div');
+            choiceDiv.className = 'preview-choice' + (correctInput.checked ? ' correct' : '');
+            choiceDiv.innerHTML = `<strong>${label}.</strong> ${textInput.value}`;
+            previewChoices.appendChild(choiceDiv);
+        }
+    });
+    
+    // Add validation message about choices
+    const validationDiv = document.createElement('div');
+    validationDiv.className = validChoiceCount >= 2 ? 'alert alert-success mt-3' : 'alert alert-danger mt-3';
+    validationDiv.innerHTML = validChoiceCount >= 2 
+        ? `<i class="fas fa-check-circle me-2"></i>You have ${validChoiceCount} valid choices.` 
+        : `<i class="fas fa-exclamation-circle me-2"></i>You need at least 2 valid choices. Currently you have ${validChoiceCount}.`;
+    previewChoices.appendChild(validationDiv);
+}
+
+// Question type validation
+function validateChoices() {
+    const questionType = document.getElementById('questionType').value;
+    const correctChoices = document.querySelectorAll('.correct-choice:checked');
+    const choiceInputs = document.querySelectorAll('.choice-text');
+    
+    // Check if there are at least 2 choices with text
+    const validChoices = Array.from(choiceInputs).filter(input => input.value.trim() !== '');
+    if (validChoices.length < 2) {
+        alert('At least 2 choices are required. Please add text for at least 2 choices.');
+        return false;
+    }
+    
+    // Check correct answer requirements
+    if (questionType === 'single' && correctChoices.length > 1) {
+        alert('Single answer questions can only have one correct choice!');
+        return false;
+    }
+    
+    if (correctChoices.length === 0) {
+        alert('Please select at least one correct answer!');
+        return false;
+    }
+    
+    return true;
+}
+
+// Pre-validate the form to catch common issues
+function preValidateForm() {
+    // Check if question text is provided
+    const questionText = document.getElementById('questionText').value.trim();
+    if (!questionText) {
+        alert('Question text is required');
+        document.getElementById('questionText').focus();
+        return false;
+    }
+    
+    // Check if at least 2 choices have text
+    const choiceInputs = document.querySelectorAll('.choice-text');
+    const validChoices = Array.from(choiceInputs).filter(input => input.value.trim() !== '');
+    
+    if (validChoices.length < 2) {
+        alert(`You need at least 2 choices with text. Currently you have ${validChoices.length}.`);
+        // Focus on the first empty choice
+        for (const input of choiceInputs) {
+            if (!input.value.trim()) {
+                input.focus();
+                break;
+            }
+        }
+        return false;
+    }
+    
+    return validateChoices();  // Call the existing validation function as well
+}
+
+// Event listeners
+document.getElementById('questionText').addEventListener('input', updatePreview);
+
+document.querySelectorAll('.choice-text').forEach(input => {
+    input.addEventListener('input', updatePreview);
+});
+
+document.querySelectorAll('.correct-choice').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        updatePreview();
+        
+        // Visual feedback for correct choices
+        const choiceItem = this.closest('.choice-item');
+        if (this.checked) {
+            choiceItem.classList.add('correct');
+        } else {
+            choiceItem.classList.remove('correct');
+        }
+    });
+});
+
+// Form validation
+document.getElementById('questionForm').addEventListener('submit', function(e) {
+    if (!validateChoices()) {
+        e.preventDefault();
+        return false;
+    }
+    
+    // Debug selected categories and choices before submission
+    const categorySelect = document.getElementById('categories');
+    const selectedCategories = Array.from(categorySelect.selectedOptions).map(o => o.value);
+    console.log('Categories being submitted:', selectedCategories);
+    
+    // Debug choices being submitted
+    const choiceInputs = document.querySelectorAll('.choice-text');
+    const validChoices = Array.from(choiceInputs).filter(input => input.value.trim() !== '').length;
+    console.log(`Submitting ${validChoices} valid choices`);
+    
+    if (validChoices < 2) {
+        alert('At least 2 choices are required. Please add at least 2 choices.');
+        e.preventDefault();
+        return false;
+    }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Add form pre-validation on submit
+    document.getElementById('questionForm').addEventListener('submit', function(e) {
+        if (!preValidateForm()) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    // Add categories selection counter
+    const categorySelect = document.getElementById('categories');
+    const selectedCount = document.getElementById('selectedCategoriesCount');
+    
+    function updateSelectedCount() {
+        const count = categorySelect.selectedOptions.length;
+        selectedCount.textContent = count;
+        
+        // Update the display of selected IDs
+        const selectedIds = Array.from(categorySelect.selectedOptions).map(o => o.value);
+        document.getElementById('selectedCategoryIds').textContent = selectedIds.join(', ');
+        
+        // Update the backup hidden field with selected IDs
+        document.getElementById('backup_categories').value = selectedIds.join(',');
+        
+        console.log(`Category selection changed: ${count} categories selected (${selectedIds.join(', ')})`);
+    }
+    
+    // Update on page load
+    updateSelectedCount();
+    
+    // Update when selection changes
+    categorySelect.addEventListener('change', updateSelectedCount);
+    
+    // Make sure categories are properly selected when form is submitted
+    document.getElementById('questionForm').addEventListener('submit', function(e) {
+        const categorySelect = document.getElementById('categories');
+        
+        // Check if multi-select is working properly
+        const selectedOptions = Array.from(categorySelect.selectedOptions).map(o => o.value);
+        console.log('Categories selected on submit:', selectedOptions);
+        
+        // Ensure selected categories are actually going to be submitted
+        if (categorySelect.options.length > 0 && selectedOptions.length === 0) {
+            console.log('No categories selected');
+        } else {
+            // This should match what's submitted to the server
+            console.log('Selected category IDs:', selectedOptions);
+        }
+    });
+    
+    // Enhance category selection with visual feedback
+    const categorySelect = document.getElementById('categories');
+    categorySelect.classList.add('form-control');
+    
+    // Mark currently selected categories
+    const selectedIds = [{% for id in selected_category_ids %}{{ id }}{% if not forloop.last %},{% endif %}{% endfor %}];
+    console.log('Pre-selected category IDs:', selectedIds);
+    
+    // Select appropriate options based on pre-selected IDs
+    Array.from(categorySelect.options).forEach(option => {
+        if (selectedIds.includes(parseInt(option.value))) {
+            option.selected = true;
+        }
+    });
+    
+    // Add a mechanism to ensure selected categories are properly submitted
+    document.getElementById('questionForm').addEventListener('submit', function(event) {
+        // Get the categories select element
+        const categoriesSelect = document.getElementById('categories');
+        
+        // Get all selected options
+        const selectedOptions = Array.from(categoriesSelect.selectedOptions).map(opt => opt.value);
+        console.log('[SUBMIT] Selected categories before submit:', selectedOptions);
+        
+        // If we don't have any selected options but we should have had selections based on the model
+        const preSelectedIds = [{% for id in selected_category_ids %}{{ id }}{% if not forloop.last %},{% endif %}{% endfor %}];
+        if (selectedOptions.length === 0 && preSelectedIds.length > 0) {
+            console.warn('[SUBMIT] Warning: Expected categories to be selected but none were!');
+            
+            // We could add a confirmation here if needed
+            if (!confirm('No categories are selected. Continue anyway?')) {
+                event.preventDefault();
+                return false;
+            }
+        }
+        
+        // Continue with form submission
+    });
+});
+</script>
+{% endblock %}

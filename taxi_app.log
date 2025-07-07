@@ -1,0 +1,1471 @@
+INFO 2025-07-07 00:59:13,940 autoreload 24340 23428 Watching for file changes with StatReloader
+WARNING 2025-07-07 00:59:29,479 log 24340 24504 Not Found: /favicon.ico
+INFO 2025-07-07 01:07:25,052 autoreload 24340 23428 G:\MyCode\App Taxi Exam\taxi_project\settings.py changed, reloading.
+INFO 2025-07-07 01:07:27,648 autoreload 11760 21904 Watching for file changes with StatReloader
+INFO 2025-07-07 01:07:35,533 autoreload 11760 21904 G:\MyCode\App Taxi Exam\taxi_project\settings.py changed, reloading.
+INFO 2025-07-07 01:07:36,670 autoreload 11044 11460 Watching for file changes with StatReloader
+INFO 2025-07-07 01:10:39,425 autoreload 11044 11460 G:\MyCode\App Taxi Exam\taxi_project\urls.py changed, reloading.
+INFO 2025-07-07 01:10:40,422 autoreload 8468 11832 Watching for file changes with StatReloader
+ERROR 2025-07-07 03:06:33,056 log 8468 19960 Internal Server Error: /categories/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 79, in category_list
+    return render(request, 'admin/category_list.html', context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\defaulttags.py", line 962, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 705, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 615, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'mul'
+ERROR 2025-07-07 03:06:40,434 log 8468 19960 Internal Server Error: /
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 52, in dashboard
+    return render(request, 'admin/dashboard.html', context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 199, in render
+    template = context.template.engine.select_template(template_name)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\engine.py", line 208, in select_template
+    return self.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\defaulttags.py", line 862, in do_for
+    nodelist_loop = parser.parse(
+        (
+    ...<2 lines>...
+        )
+    )
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 705, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 615, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'mul'
+INFO 2025-07-07 03:08:26,039 autoreload 8468 11832 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 03:08:26,969 autoreload 12992 15144 Watching for file changes with StatReloader
+INFO 2025-07-07 03:08:36,155 autoreload 12992 15144 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 03:08:37,231 autoreload 19704 132 Watching for file changes with StatReloader
+INFO 2025-07-07 03:21:54,887 autoreload 19704 132 G:\MyCode\App Taxi Exam\taxi_project\settings.py changed, reloading.
+INFO 2025-07-07 03:21:55,841 autoreload 23132 3748 Watching for file changes with StatReloader
+INFO 2025-07-07 03:22:21,504 autoreload 23132 3748 G:\MyCode\App Taxi Exam\taxi\models.py changed, reloading.
+INFO 2025-07-07 03:22:22,375 autoreload 13612 4084 Watching for file changes with StatReloader
+INFO 2025-07-07 03:22:26,963 autoreload 13612 4084 G:\MyCode\App Taxi Exam\taxi\admin.py changed, reloading.
+INFO 2025-07-07 03:22:27,920 autoreload 11712 23276 Watching for file changes with StatReloader
+INFO 2025-07-07 03:22:29,461 autoreload 11712 23276 G:\MyCode\App Taxi Exam\taxi\templatetags\taxi_extras.py changed, reloading.
+INFO 2025-07-07 03:22:31,985 autoreload 19300 11456 Watching for file changes with StatReloader
+INFO 2025-07-07 03:23:23,416 autoreload 19300 11456 G:\MyCode\App Taxi Exam\taxi\models.py changed, reloading.
+INFO 2025-07-07 03:23:24,311 autoreload 16272 10948 Watching for file changes with StatReloader
+INFO 2025-07-07 03:33:39,576 autoreload 13664 6552 Watching for file changes with StatReloader
+ERROR 2025-07-07 03:44:43,949 log 13664 940 Internal Server Error: /questions/487/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 239, in question_detail
+    return render(request, 'admin/question_detail.html', context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '=True.count' from 'question.choices.filter.is_correct=True.count'
+ERROR 2025-07-07 03:45:00,190 log 13664 940 Internal Server Error: /questions/499/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 239, in question_detail
+    return render(request, 'admin/question_detail.html', context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 489, in parse
+    raise self.error(token, e)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 487, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 609, in compile_filter
+    return FilterExpression(token, self)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 710, in __init__
+    raise TemplateSyntaxError(
+    ...<2 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Could not parse the remainder: '=True.count' from 'question.choices.filter.is_correct=True.count'
+INFO 2025-07-07 03:45:55,008 autoreload 13664 6552 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 03:45:56,048 autoreload 10620 13004 Watching for file changes with StatReloader
+INFO 2025-07-07 03:48:42,744 autoreload 10620 13004 G:\MyCode\App Taxi Exam\taxi\urls.py changed, reloading.
+INFO 2025-07-07 03:48:43,880 autoreload 18332 12664 Watching for file changes with StatReloader
+INFO 2025-07-07 03:50:46,837 autoreload 18332 12664 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 03:50:47,837 autoreload 6696 3464 Watching for file changes with StatReloader
+INFO 2025-07-07 03:51:40,340 autoreload 6696 3464 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 03:51:41,369 autoreload 5276 24356 Watching for file changes with StatReloader
+INFO 2025-07-07 03:57:42,009 autoreload 5276 24356 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 03:57:43,001 autoreload 8744 3756 Watching for file changes with StatReloader
+INFO 2025-07-07 04:08:42,409 autoreload 8744 3756 G:\MyCode\App Taxi Exam\taxi\models.py changed, reloading.
+INFO 2025-07-07 04:08:43,413 autoreload 13080 15504 Watching for file changes with StatReloader
+INFO 2025-07-07 04:09:24,085 autoreload 13080 15504 G:\MyCode\App Taxi Exam\taxi\admin.py changed, reloading.
+INFO 2025-07-07 04:09:24,967 autoreload 10112 6892 Watching for file changes with StatReloader
+INFO 2025-07-07 04:09:33,842 autoreload 10112 6892 G:\MyCode\App Taxi Exam\taxi\admin.py changed, reloading.
+INFO 2025-07-07 04:09:34,904 autoreload 10164 24320 Watching for file changes with StatReloader
+INFO 2025-07-07 04:09:43,727 autoreload 10164 24320 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 04:09:44,669 autoreload 20836 18036 Watching for file changes with StatReloader
+INFO 2025-07-07 04:10:14,743 autoreload 20836 18036 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 04:10:15,603 autoreload 4724 19984 Watching for file changes with StatReloader
+ERROR 2025-07-07 04:12:58,888 log 4724 9136 Internal Server Error: /questions/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 198, in question_list
+    return render(request, 'admin/question_list.html', context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'question_test' not found. 'question_test' is not a valid view function or pattern name.
+INFO 2025-07-07 04:13:20,370 autoreload 4724 19984 G:\MyCode\App Taxi Exam\taxi\models.py changed, reloading.
+INFO 2025-07-07 04:13:21,432 autoreload 23440 21272 Watching for file changes with StatReloader
+ERROR 2025-07-07 04:13:27,626 log 23440 3916 Internal Server Error: /questions/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 198, in question_list
+    return render(request, 'admin/question_list.html', context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'question_test' not found. 'question_test' is not a valid view function or pattern name.
+INFO 2025-07-07 04:14:11,922 autoreload 23440 21272 G:\MyCode\App Taxi Exam\taxi\urls.py changed, reloading.
+INFO 2025-07-07 04:14:12,915 autoreload 23436 4808 Watching for file changes with StatReloader
+ERROR 2025-07-07 04:14:27,014 log 23436 20460 Internal Server Error: /questions/736/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+ERROR 2025-07-07 04:14:39,271 log 23436 20460 Internal Server Error: /questions/735/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+INFO 2025-07-07 04:16:53,533 autoreload 23436 4808 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 04:16:54,528 autoreload 19180 22888 Watching for file changes with StatReloader
+ERROR 2025-07-07 04:17:06,651 log 19180 16516 Internal Server Error: /questions/736/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+ERROR 2025-07-07 04:17:13,958 log 19180 16516 Internal Server Error: /questions/735/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+ERROR 2025-07-07 04:17:24,715 log 19180 16516 Internal Server Error: /questions/736/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+WARNING 2025-07-07 04:17:29,688 log 19180 16516 Not Found: /favicon.ico
+ERROR 2025-07-07 04:17:32,845 log 19180 16516 Internal Server Error: /questions/736/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+ERROR 2025-07-07 04:18:48,634 log 19180 16516 Internal Server Error: /questions/736/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+ERROR 2025-07-07 04:18:55,865 log 19180 16516 Internal Server Error: /questions/734/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+ERROR 2025-07-07 04:19:02,957 log 19180 16516 Internal Server Error: /questions/736/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+INFO 2025-07-07 04:19:09,791 autoreload 19180 22888 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 04:19:10,843 autoreload 10768 12960 Watching for file changes with StatReloader
+ERROR 2025-07-07 04:20:05,847 log 10768 1012 Internal Server Error: /questions/734/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+ERROR 2025-07-07 04:20:09,321 log 10768 1012 Internal Server Error: /questions/735/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+INFO 2025-07-07 12:36:37,926 autoreload 21652 21900 Watching for file changes with StatReloader
+WARNING 2025-07-07 12:36:45,948 log 21652 12652 Not Found: /favicon.ico
+WARNING 2025-07-07 12:39:08,119 log 21652 12652 Not Found: /favicon.ico
+INFO 2025-07-07 12:41:34,185 autoreload 17472 19516 Watching for file changes with StatReloader
+WARNING 2025-07-07 12:42:25,959 log 21652 22280 Not Found: /accounts/login/
+WARNING 2025-07-07 12:42:32,578 log 21652 22280 Not Found: /accounts/login/
+WARNING 2025-07-07 12:43:21,872 log 21652 12652 Not Found: /favicon.ico
+WARNING 2025-07-07 12:43:33,947 log 21652 12652 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:46:07,870 log 21652 12652 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:47:48,635 log 21652 17708 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:47:49,210 log 21652 17708 Not Found: /favicon.ico
+WARNING 2025-07-07 12:48:02,661 log 21652 17708 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:48:06,228 log 21652 17708 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:53:45,256 log 21652 20496 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:53:47,859 log 21652 20496 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:53:48,403 log 21652 20496 Not Found: /favicon.ico
+ERROR 2025-07-07 12:53:57,275 log 21652 20496 Internal Server Error: /questions/736/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+ERROR 2025-07-07 12:54:01,362 log 21652 20496 Internal Server Error: /questions/735/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+ERROR 2025-07-07 12:54:17,601 log 21652 20496 Internal Server Error: /questions/736/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+WARNING 2025-07-07 12:54:34,438 log 21652 1128 Not Found: /accounts/login/
+ERROR 2025-07-07 12:56:19,317 log 21652 20496 Internal Server Error: /questions/728/test/
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such table: taxi_questiontestresult
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "G:\MyCode\App Taxi Exam\taxi\views.py", line 405, in question_test
+    stats = question.get_test_stats(request.user)
+  File "G:\MyCode\App Taxi Exam\taxi\models.py", line 87, in get_test_stats
+    stats['total_tests'] = test_results.count()
+                           ~~~~~~~~~~~~~~~~~~^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\query.py", line 604, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 644, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\query.py", line 626, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "G:\MyCode\App Taxi Exam\.venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 360, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such table: taxi_questiontestresult
+INFO 2025-07-07 12:56:51,100 autoreload 17472 19516 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 12:56:51,116 autoreload 21652 21900 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 12:56:52,133 autoreload 22080 12952 Watching for file changes with StatReloader
+INFO 2025-07-07 12:56:52,133 autoreload 10284 23944 Watching for file changes with StatReloader
+INFO 2025-07-07 12:57:23,394 autoreload 10284 23944 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 12:57:23,394 autoreload 22080 12952 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 12:57:24,243 autoreload 7824 10664 Watching for file changes with StatReloader
+INFO 2025-07-07 12:57:24,286 autoreload 21036 24420 Watching for file changes with StatReloader
+INFO 2025-07-07 12:58:07,979 autoreload 21036 24420 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 12:58:07,981 autoreload 7824 10664 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 12:58:08,817 autoreload 12452 15596 Watching for file changes with StatReloader
+INFO 2025-07-07 12:58:08,890 autoreload 11836 19768 Watching for file changes with StatReloader
+INFO 2025-07-07 12:58:15,562 autoreload 11836 19768 G:\MyCode\App Taxi Exam\taxi\urls.py changed, reloading.
+INFO 2025-07-07 12:58:15,571 autoreload 12452 15596 G:\MyCode\App Taxi Exam\taxi\urls.py changed, reloading.
+INFO 2025-07-07 12:58:16,444 autoreload 10320 10720 Watching for file changes with StatReloader
+INFO 2025-07-07 12:58:16,545 autoreload 19244 22060 Watching for file changes with StatReloader
+WARNING 2025-07-07 12:58:21,905 log 10320 3900 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:58:22,500 log 10320 10160 Not Found: /favicon.ico
+ERROR 2025-07-07 12:58:24,359 log 10320 10160 Internal Server Error: /questions/736/test/
+ERROR 2025-07-07 12:58:32,056 log 10320 10160 Internal Server Error: /questions/733/test/
+INFO 2025-07-07 12:58:38,255 autoreload 10320 10720 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 12:58:39,127 autoreload 19244 22060 G:\MyCode\App Taxi Exam\taxi\urls.py changed, reloading.
+INFO 2025-07-07 12:58:39,173 autoreload 1752 4728 Watching for file changes with StatReloader
+INFO 2025-07-07 12:58:40,004 autoreload 15104 21520 Watching for file changes with StatReloader
+WARNING 2025-07-07 12:58:43,096 log 1752 15988 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:58:44,103 log 1752 15988 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 12:58:45,877 log 1752 15988 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+ERROR 2025-07-07 12:58:48,313 log 1752 15988 Internal Server Error: /questions/735/test/
+INFO 2025-07-07 12:59:27,927 autoreload 15104 21520 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 12:59:28,365 autoreload 1752 4728 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 12:59:28,752 autoreload 12184 1948 Watching for file changes with StatReloader
+INFO 2025-07-07 12:59:29,217 autoreload 18128 17820 Watching for file changes with StatReloader
+INFO 2025-07-07 12:59:37,703 autoreload 12184 1948 G:\MyCode\App Taxi Exam\taxi\urls.py changed, reloading.
+INFO 2025-07-07 12:59:38,076 autoreload 18128 17820 G:\MyCode\App Taxi Exam\taxi\urls.py changed, reloading.
+INFO 2025-07-07 12:59:38,555 autoreload 12600 17116 Watching for file changes with StatReloader
+INFO 2025-07-07 12:59:38,916 autoreload 3880 23816 Watching for file changes with StatReloader
+WARNING 2025-07-07 13:00:25,372 log 12600 23432 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+ERROR 2025-07-07 13:00:26,983 log 12600 23432 Internal Server Error: /questions/736/test/
+ERROR 2025-07-07 13:00:29,973 log 12600 23432 Internal Server Error: /questions/734/test/
+ERROR 2025-07-07 13:00:34,663 log 12600 23432 Internal Server Error: /questions/732/test/
+WARNING 2025-07-07 13:00:40,181 log 12600 23432 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 13:00:43,864 log 12600 23432 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 13:00:43,921 log 12600 23432 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+ERROR 2025-07-07 13:00:52,860 log 12600 23432 Internal Server Error: /questions/734/test/
+WARNING 2025-07-07 13:01:10,675 log 12600 12220 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+ERROR 2025-07-07 13:01:15,729 log 12600 11508 Internal Server Error: /questions/732/test/
+WARNING 2025-07-07 13:01:15,817 log 12600 11508 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+INFO 2025-07-07 13:02:07,252 autoreload 3880 23816 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 13:02:07,297 autoreload 12600 17116 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 13:02:08,143 autoreload 12484 17836 Watching for file changes with StatReloader
+INFO 2025-07-07 13:02:08,205 autoreload 22836 15200 Watching for file changes with StatReloader
+INFO 2025-07-07 13:02:14,884 autoreload 22836 15200 G:\MyCode\App Taxi Exam\taxi\urls.py changed, reloading.
+INFO 2025-07-07 13:02:14,929 autoreload 12484 17836 G:\MyCode\App Taxi Exam\taxi\urls.py changed, reloading.
+INFO 2025-07-07 13:02:15,774 autoreload 19496 20844 Watching for file changes with StatReloader
+INFO 2025-07-07 13:02:15,807 autoreload 2436 16584 Watching for file changes with StatReloader
+ERROR 2025-07-07 13:02:44,661 log 19496 9460 Internal Server Error: /questions/732/test/
+WARNING 2025-07-07 13:02:44,695 log 19496 9460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+ERROR 2025-07-07 13:02:46,092 log 19496 9460 Internal Server Error: /questions/732/test/
+WARNING 2025-07-07 13:02:46,119 log 19496 9460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+ERROR 2025-07-07 13:02:47,045 log 19496 9460 Internal Server Error: /questions/732/test/
+WARNING 2025-07-07 13:02:47,073 log 19496 9460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+ERROR 2025-07-07 13:02:47,764 log 19496 9460 Internal Server Error: /questions/732/test/
+WARNING 2025-07-07 13:02:47,793 log 19496 9460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+ERROR 2025-07-07 13:02:48,931 log 19496 9460 Internal Server Error: /questions/732/test/
+WARNING 2025-07-07 13:02:48,984 log 19496 9460 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 13:03:19,741 log 19496 7000 Not Found: /accounts/login/
+INFO 2025-07-07 13:03:56,719 autoreload 2436 16584 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 13:03:56,764 autoreload 19496 20844 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 13:03:57,675 autoreload 14684 20980 Watching for file changes with StatReloader
+INFO 2025-07-07 13:03:57,818 autoreload 5280 23804 Watching for file changes with StatReloader
+INFO 2025-07-07 13:04:30,719 autoreload 5280 23804 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 13:04:30,729 autoreload 14684 20980 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 13:04:31,657 autoreload 23048 8344 Watching for file changes with StatReloader
+INFO 2025-07-07 13:04:31,662 autoreload 16396 21312 Watching for file changes with StatReloader
+WARNING 2025-07-07 13:04:34,398 log 16396 2072 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 13:04:44,940 log 16396 7636 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+ERROR 2025-07-07 13:05:03,814 log 16396 7636 Internal Server Error: /questions/736/test/
+ERROR 2025-07-07 13:05:20,266 log 16396 7636 Internal Server Error: /questions/732/test/
+INFO 2025-07-07 13:06:00,987 autoreload 21684 592 Watching for file changes with StatReloader
+INFO 2025-07-07 13:06:38,647 autoreload 23272 8984 Watching for file changes with StatReloader
+WARNING 2025-07-07 13:06:41,678 log 23272 20400 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+INFO 2025-07-07 13:19:58,435 autoreload 23272 8984 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 13:19:59,379 autoreload 13428 15480 Watching for file changes with StatReloader
+INFO 2025-07-07 13:20:24,610 autoreload 13428 15480 G:\MyCode\App Taxi Exam\taxi\templatetags\taxi_extras.py changed, reloading.
+INFO 2025-07-07 13:20:25,426 autoreload 5640 1284 Watching for file changes with StatReloader
+INFO 2025-07-07 13:21:59,928 autoreload 5640 1284 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 13:22:01,429 autoreload 10256 21760 Watching for file changes with StatReloader
+INFO 2025-07-07 13:22:54,920 autoreload 10256 21760 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 13:22:55,807 autoreload 21324 10448 Watching for file changes with StatReloader
+INFO 2025-07-07 14:29:14,724 autoreload 21324 10448 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 14:29:15,572 autoreload 13812 18072 Watching for file changes with StatReloader
+INFO 2025-07-07 14:30:17,505 autoreload 13812 18072 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 14:30:18,376 autoreload 4380 21544 Watching for file changes with StatReloader
+INFO 2025-07-07 14:35:20,916 autoreload 4380 21544 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 14:35:21,958 autoreload 10664 1044 Watching for file changes with StatReloader
+INFO 2025-07-07 14:36:14,328 autoreload 10664 1044 G:\MyCode\App Taxi Exam\taxi\templatetags\taxi_extras.py changed, reloading.
+INFO 2025-07-07 14:36:15,469 autoreload 9336 19340 Watching for file changes with StatReloader
+INFO 2025-07-07 14:44:48,240 autoreload 9336 19340 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 14:44:49,160 autoreload 17412 21560 Watching for file changes with StatReloader
+INFO 2025-07-07 14:59:33,887 autoreload 17412 21560 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
+INFO 2025-07-07 14:59:35,703 autoreload 15084 23728 Watching for file changes with StatReloader

@@ -1,0 +1,826 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% load taxi_extras %}
+
+{% block title %}Questions - Taxi Management System{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Questions Management</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a href="{% url 'question_create' %}" class="btn btn-primary">
+            <i class="fas fa-plus me-2"></i>Add New Question
+        </a>
+    </div>
+</div>
+
+<!-- Search and Filter -->
+<div class="row mb-3">
+    <div class="col-md-4">
+        <div class="input-group search-box">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search questions...">
+            <button class="btn btn-outline-secondary" type="button" id="searchBtn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <select class="form-select" id="typeFilter">
+            <option value="">All Types</option>
+            <option value="single">Single Answer</option>
+            <option value="multiple">Multiple Answer</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select class="form-select" id="categoryFilter">
+            <option value="">All Categories</option>
+            {% for category in all_categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-outline-primary w-100" id="resetFilters">
+            <i class="fas fa-undo me-1"></i>Reset
+        </button>
+    </div>
+</div>
+
+<!-- Questions Table -->
+<div class="card shadow">
+    <div class="card-header">
+        <h6 class="m-0 font-weight-bold text-primary">
+            <i class="fas fa-question-circle me-2"></i>All Questions ({{ questions.count }})
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="questionsTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Question</th>
+                        <th>Type</th>
+                        <th>Categories</th>
+                        <th>Choices</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for question in questions %}
+                    <tr data-question-text="{{ question.question_text|lower }}" 
+                        data-type="{{ question.question_type }}" 
+                        data-categories="{% for cat in question.categories.all %}{{ cat.id }},{% endfor %}">
+                        <td>{{ question.id }}</td>
+                        <td>
+                            <div class="question-text">
+                                {{ question.question_text|truncatechars:100 }}
+                            </div>
+                        </td>
+                        <td>
+                            {% if question.question_type == 'single' %}
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check-circle me-1"></i>Single
+                                </span>
+                            {% else %}
+                                <span class="badge bg-info">
+                                    <i class="fas fa-check-double me-1"></i>Multiple
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% for category in question.categories.all %}
+                                <span class="badge bg-secondary me-1">{{ category.name }}</span>
+                            {% empty %}
+                                <span class="text-muted">No categories</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <span class="badge bg-primary">{{ question.choices.count }} choices</span>
+                        </td>
+                        <td>{{ question.created_at|date:"M d, Y" }}</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-sm btn-outline-success" 
+                                        onclick="testQuestion({{ question.id }})" title="Test Question">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <a href="{% url 'question_detail' question.id %}" class="btn btn-sm btn-outline-info" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="{% url 'question_edit' question.id %}" class="btn btn-sm btn-outline-primary" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-outline-danger" 
+                                        onclick="deleteQuestion({{ question.id }}, '{{ question.question_text|truncatechars:50 }}')" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">
+                            <i class="fas fa-question-circle fa-3x mb-3 text-muted"></i>
+                            <br>No questions found. <a href="{% url 'question_create' %}">Add your first question</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Question Modal -->
+<div class="modal fade" id="deleteQuestionModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-trash me-2"></i>Delete Question
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this question?</p>
+                <p class="text-muted"><strong>Question:</strong> <span id="deleteQuestionText"></span></p>
+                <p class="text-warning">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    This action cannot be undone. All choices will also be deleted.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <i class="fas fa-trash me-2"></i>Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Test Question Modal -->
+<div class="modal fade" id="testQuestionModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-play me-2"></i>Test Question
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Question Display -->
+                <div id="questionDisplay">
+                    <h6 class="fw-bold mb-3" id="questionText"></h6>
+                    <div id="questionType" class="mb-3"></div>
+                    
+                    <!-- Choices -->
+                    <div id="choicesContainer">
+                        <!-- Choices will be populated here -->
+                    </div>
+                    
+                    <!-- Error Display -->
+                    <div id="testError" class="alert alert-danger d-none" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <span id="testErrorMessage"></span>
+                    </div>
+                </div>
+                
+                <!-- Result Display (hidden initially) -->
+                <div id="resultDisplay" class="d-none">
+                    <!-- Question and Result -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0"><i class="fas fa-question-circle me-2"></i>Question</h6>
+                                <div id="resultBadge" class="badge"></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="fw-bold mb-3" id="resultQuestionText"></h6>
+                            <div id="resultQuestionType" class="mb-3"></div>
+                            
+                            <!-- Result message -->
+                            <div class="alert" id="resultAlert">
+                                <h6 class="fw-bold mb-2" id="resultTitle"></h6>
+                                <p id="resultMessage"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- All Choices Display -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h6 class="mb-0"><i class="fas fa-list-ul me-2"></i>Answer Choices</h6>
+                        </div>
+                        <div class="card-body">
+                            <div id="resultChoicesContainer">
+                                <!-- Choices will be displayed here with visual indicators -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Test Statistics -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Your Test Statistics</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row text-center">
+                                <div class="col-md-3">
+                                    <div class="stat-box">
+                                        <div class="stat-number text-primary" id="totalTests">0</div>
+                                        <div class="stat-label">Total Tests</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stat-box">
+                                        <div class="stat-number text-success" id="correctTests">0</div>
+                                        <div class="stat-label">Correct</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stat-box">
+                                        <div class="stat-number text-danger" id="incorrectTests">0</div>
+                                        <div class="stat-label">Incorrect</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stat-box">
+                                        <div class="stat-number text-info" id="successRate">0%</div>
+                                        <div class="stat-label">Success Rate</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Loading Display -->
+                <div id="loadingDisplay" class="text-center d-none">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2">Loading question...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="submitTestBtn">
+                    <i class="fas fa-check me-2"></i>Submit Answer
+                </button>
+                <button type="button" class="btn btn-primary d-none" id="testAgainBtn">
+                    <i class="fas fa-redo me-2"></i>Test Again
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .question-text {
+        max-width: 300px;
+        word-wrap: break-word;
+    }
+    .badge {
+        font-size: 0.75em;
+    }
+    
+    /* Test Modal Styles */
+    .choice-option {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .choice-option:hover {
+        border-color: #007bff;
+        background-color: #f8f9fa;
+    }
+    
+    .choice-option.selected {
+        border-color: #007bff;
+        background-color: #e3f2fd;
+    }
+    
+    .choice-option.correct {
+        border-color: #28a745;
+        background-color: #d4edda;
+    }
+    
+    .choice-option.incorrect {
+        border-color: #dc3545;
+        background-color: #f8d7da;
+    }
+    
+    .choice-option.missed {
+        border-color: #ffc107;
+        background-color: #fff3cd;
+    }
+    
+    .choice-option.neutral {
+        border-color: #e9ecef;
+        background-color: #f8f9fa;
+    }
+    
+    .choice-option .form-check-input {
+        margin-right: 10px;
+    }
+    
+    .stat-box {
+        padding: 10px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+    
+    .question-type-badge {
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Global variables
+let currentQuestionId = null;
+let currentQuestionData = null;
+let questionToDelete = null;
+
+// Test Question Functionality
+function testQuestion(questionId) {
+    console.log('Testing question ID:', questionId);
+    currentQuestionId = questionId;
+    
+    // Get modal element
+    const modalElement = document.getElementById('testQuestionModal');
+    if (!modalElement) {
+        console.error('Modal element not found!');
+        alert('Test modal not found. Please refresh the page.');
+        return;
+    }
+    
+    // Show the modal using Bootstrap 5
+    const modal = new bootstrap.Modal(modalElement);
+    modal.show();
+    
+    // Show loading state
+    showTestLoading();
+    
+    // Try the simplified endpoint instead
+    const url = '/questions/' + questionId + '/simple_test/';
+    console.log('Fetching from URL:', url);
+    
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin'  // Include cookies for CSRF
+    })
+    .then(response => {
+        console.log('Response status:', response.status);
+        console.log('Response headers:', response.headers);
+        
+        if (!response.ok) {
+            throw new Error('HTTP error! status: ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Received data:', data);
+        currentQuestionData = data;
+        
+        // Add dummy stats since the simplified endpoint doesn't provide them
+        if (!data.stats) {
+            data.stats = {
+                total_tests: 0,
+                correct_tests: 0,
+                incorrect_tests: 0,
+                success_rate: 0
+            };
+        }
+        
+        displayQuestion(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        hideTestLoading();
+        showTestError('Failed to load question. Error: ' + error.message);
+    });
+}
+
+// Make testQuestion globally accessible
+window.testQuestion = testQuestion;
+
+function showTestLoading() {
+    document.getElementById('loadingDisplay').classList.remove('d-none');
+    document.getElementById('questionDisplay').classList.add('d-none');
+    document.getElementById('resultDisplay').classList.add('d-none');
+    document.getElementById('submitTestBtn').classList.add('d-none');
+    document.getElementById('testAgainBtn').classList.add('d-none');
+}
+
+function hideTestLoading() {
+    document.getElementById('loadingDisplay').classList.add('d-none');
+}
+
+function showTestError(message) {
+    document.getElementById('testErrorMessage').textContent = message;
+    document.getElementById('testError').classList.remove('d-none');
+}
+
+function hideTestError() {
+    document.getElementById('testError').classList.add('d-none');
+}
+
+function displayQuestion(data) {
+    console.log('Displaying question data:', data);
+    
+    // Validate data structure
+    if (!data || !data.question) {
+        console.error('Invalid data structure:', data);
+        showTestError('Invalid question data received.');
+        return;
+    }
+    
+    // Hide loading
+    document.getElementById('loadingDisplay').classList.add('d-none');
+    
+    // Show question display
+    document.getElementById('questionDisplay').classList.remove('d-none');
+    document.getElementById('resultDisplay').classList.add('d-none');
+    
+    // Populate question data
+    const questionText = document.getElementById('questionText');
+    if (questionText) {
+        questionText.textContent = data.question.text;
+        console.log('Set question text:', data.question.text);
+    } else {
+        console.error('questionText element not found');
+        return;
+    }
+    
+    // Show question type
+    const typeText = data.question.type === 'single' ? 'Single Correct Answer' : 'Multiple Correct Answers';
+    const typeIcon = data.question.type === 'single' ? 'fa-check-circle' : 'fa-check-double';
+    const typeColor = data.question.type === 'single' ? 'success' : 'info';
+    
+    const questionTypeElement = document.getElementById('questionType');
+    if (questionTypeElement) {
+        questionTypeElement.innerHTML = `
+            <span class="badge bg-${typeColor} question-type-badge">
+                <i class="fas ${typeIcon} me-1"></i>${typeText}
+            </span>
+        `;
+    }
+    
+    // Populate choices
+    const choicesContainer = document.getElementById('choicesContainer');
+    if (!choicesContainer) {
+        console.error('choicesContainer element not found');
+        return;
+    }
+    
+    choicesContainer.innerHTML = '';
+    
+    if (!data.question.choices || data.question.choices.length === 0) {
+        console.error('No choices found for question');
+        showTestError('No choices available for this question.');
+        return;
+    }
+    
+    const inputType = data.question.type === 'single' ? 'radio' : 'checkbox';
+    const inputName = data.question.type === 'single' ? 'selected_choice' : 'selected_choices';
+    
+    console.log('Creating choices:', data.question.choices.length, 'choices');
+    
+    data.question.choices.forEach(choice => {
+        console.log('Creating choice:', choice);
+        const choiceDiv = document.createElement('div');
+        choiceDiv.className = 'choice-option';
+        choiceDiv.innerHTML = `
+            <div class="form-check">
+                <input class="form-check-input" type="${inputType}" name="${inputName}" 
+                       value="${choice.id}" id="choice_${choice.id}">
+                <label class="form-check-label" for="choice_${choice.id}">
+                    <strong>${choice.label}.</strong> ${choice.text}
+                </label>
+            </div>
+        `;
+        
+        // Add click handler for the entire div
+        choiceDiv.addEventListener('click', function(e) {
+            if (e.target.type !== inputType) {
+                const input = choiceDiv.querySelector('input');
+                if (inputType === 'radio') {
+                    // For radio buttons, unselect all others first
+                    document.querySelectorAll('.choice-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    input.checked = true;
+                } else {
+                    // For checkboxes, toggle
+                    input.checked = !input.checked;
+                }
+                
+                if (input.checked) {
+                    choiceDiv.classList.add('selected');
+                } else {
+                    choiceDiv.classList.remove('selected');
+                }
+            }
+        });
+        
+        // Handle input change
+        const input = choiceDiv.querySelector('input');
+        input.addEventListener('change', function() {
+            if (inputType === 'radio') {
+                // For radio buttons, update all choice options
+                document.querySelectorAll('.choice-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+            }
+            
+            if (this.checked) {
+                choiceDiv.classList.add('selected');
+            } else {
+                choiceDiv.classList.remove('selected');
+            }
+        });
+        
+        choicesContainer.appendChild(choiceDiv);
+    });
+    
+    // Update statistics display
+    if (data.stats) {
+        updateTestStats(data.stats);
+    }
+    
+    // Show submit button
+    document.getElementById('submitTestBtn').classList.remove('d-none');
+    document.getElementById('testAgainBtn').classList.add('d-none');
+    
+    // Clear any previous errors
+    hideTestError();
+    
+    console.log('Question display completed');
+}
+
+function displayTestResult(data) {
+    console.log('Displaying test result data:', data);
+    
+    // Hide question display and show result
+    document.getElementById('questionDisplay').classList.add('d-none');
+    document.getElementById('resultDisplay').classList.remove('d-none');
+    
+    // Display the question in the result section
+    document.getElementById('resultQuestionText').textContent = data.question.text;
+    
+    // Show question type in results
+    const typeText = data.question.type === 'single' ? 'Single Correct Answer' : 'Multiple Correct Answers';
+    const typeIcon = data.question.type === 'single' ? 'fa-check-circle' : 'fa-check-double';
+    const typeColor = data.question.type === 'single' ? 'success' : 'info';
+    
+    document.getElementById('resultQuestionType').innerHTML = `
+        <span class="badge bg-${typeColor} question-type-badge">
+            <i class="fas ${typeIcon} me-1"></i>${typeText}
+        </span>
+    `;
+    
+    // Display result badge at the top
+    const resultBadge = document.getElementById('resultBadge');
+    if (data.is_correct) {
+        resultBadge.className = 'badge bg-success';
+        resultBadge.innerHTML = '<i class="fas fa-check-circle me-1"></i>Correct Answer';
+    } else {
+        resultBadge.className = 'badge bg-danger';
+        resultBadge.innerHTML = '<i class="fas fa-times-circle me-1"></i>Incorrect Answer';
+    }
+    
+    // Update result alert
+    const resultAlert = document.getElementById('resultAlert');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultMessage = document.getElementById('resultMessage');
+    
+    if (data.is_correct) {
+        resultAlert.className = 'alert alert-success';
+        resultTitle.innerHTML = '<i class="fas fa-check-circle me-2"></i>Correct!';
+        resultMessage.textContent = 'Well done! You selected the correct answer.';
+    } else {
+        resultAlert.className = 'alert alert-danger';
+        resultTitle.innerHTML = '<i class="fas fa-times-circle me-2"></i>Incorrect';
+        resultMessage.textContent = 'That\'s not quite right. See the correct answers below.';
+    }
+    
+    // Create a map of selected choice IDs for easier lookup
+    const selectedChoiceIds = data.selected_choices.map(c => c.id);
+    
+    // Show all choices with appropriate styling
+    const resultChoicesContainer = document.getElementById('resultChoicesContainer');
+    resultChoicesContainer.innerHTML = '';
+    
+    // Make sure we have all choices to display
+    const allChoices = data.all_choices || [];
+    
+    // Sort choices by option_label to ensure they're in the right order (A, B, C, D)
+    allChoices.sort((a, b) => a.label.localeCompare(b.label));
+    
+    allChoices.forEach(choice => {
+        const wasSelected = selectedChoiceIds.includes(choice.id);
+        const isCorrect = data.correct_choices.some(c => c.id === choice.id);
+        
+        // Determine class and icon based on correctness and selection
+        let className = 'choice-option';
+        let icon = '';
+        
+        if (wasSelected && isCorrect) {
+            // Selected correctly
+            className += ' correct';
+            icon = '<i class="fas fa-check-circle text-success me-2"></i>';
+        } else if (wasSelected && !isCorrect) {
+            // Selected incorrectly
+            className += ' incorrect';
+            icon = '<i class="fas fa-times-circle text-danger me-2"></i>';
+        } else if (!wasSelected && isCorrect) {
+            // Correct but not selected
+            className += ' missed';
+            icon = '<i class="fas fa-exclamation-circle text-warning me-2"></i>';
+        } else {
+            // Not selected and not correct
+            className += ' neutral';
+        }
+        
+        const choiceDiv = document.createElement('div');
+        choiceDiv.className = className;
+        choiceDiv.innerHTML = `
+            <div class="d-flex align-items-center">
+                ${icon}
+                <div>
+                    <strong>${choice.label}.</strong> ${choice.text}
+                    ${isCorrect ? '<span class="ms-2 badge bg-success">Correct</span>' : ''}
+                    ${wasSelected ? '<span class="ms-2 badge bg-primary">Selected</span>' : ''}
+                </div>
+            </div>
+        `;
+        
+        resultChoicesContainer.appendChild(choiceDiv);
+    });
+    
+    // Update statistics
+    updateTestStats(data.stats);
+    
+    // Update button states
+    document.getElementById('submitTestBtn').classList.add('d-none');
+    document.getElementById('testAgainBtn').classList.remove('d-none');
+}
+
+function updateTestStats(stats) {
+    document.getElementById('totalTests').textContent = stats.total_tests;
+    document.getElementById('correctTests').textContent = stats.correct_tests;
+    document.getElementById('incorrectTests').textContent = stats.incorrect_tests;
+    document.getElementById('successRate').textContent = stats.success_rate + '%';
+}
+
+// Delete question function
+function deleteQuestion(id, text) {
+    questionToDelete = id;
+    document.getElementById('deleteQuestionText').textContent = text;
+    
+    const modal = new bootstrap.Modal(document.getElementById('deleteQuestionModal'));
+    modal.show();
+}
+// Event listeners for search and filtering
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    filterTable();
+});
+
+document.getElementById('typeFilter').addEventListener('change', function() {
+    filterTable();
+});
+
+document.getElementById('categoryFilter').addEventListener('change', function() {
+    filterTable();
+});
+
+document.getElementById('resetFilters').addEventListener('click', function() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('typeFilter').value = '';
+    document.getElementById('categoryFilter').value = '';
+    filterTable();
+});
+
+function filterTable() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const typeFilter = document.getElementById('typeFilter').value;
+    const categoryFilter = document.getElementById('categoryFilter').value;
+    const rows = document.querySelectorAll('#questionsTable tbody tr');
+    
+    rows.forEach(function(row) {
+        const questionText = row.getAttribute('data-question-text') || '';
+        const questionType = row.getAttribute('data-type') || '';
+        const categories = row.getAttribute('data-categories') || '';
+        
+        const matchesSearch = questionText.includes(searchTerm);
+        const matchesType = typeFilter === '' || questionType === typeFilter;
+        const matchesCategory = categoryFilter === '' || categories.includes(categoryFilter + ',');
+        
+        if (matchesSearch && matchesType && matchesCategory) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+}
+
+// Confirm delete
+document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+    if (questionToDelete) {
+        // Create and submit delete form
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '{% url "question_delete" 0 %}'.replace('0', questionToDelete);
+        
+        const csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = 'csrfmiddlewaretoken';
+        csrfToken.value = '{{ csrf_token }}';
+        form.appendChild(csrfToken);
+        
+        document.body.appendChild(form);
+        form.submit();
+    }
+});
+
+// Submit test answer
+document.getElementById('submitTestBtn').addEventListener('click', function() {
+    const selectedInputs = document.querySelectorAll('input[name="selected_choice"]:checked, input[name="selected_choices"]:checked');
+    
+    if (selectedInputs.length === 0) {
+        showTestError('Please select at least one answer.');
+        return;
+    }
+    
+    // Collect selected choice IDs
+    const selectedChoices = Array.from(selectedInputs).map(input => input.value);
+    
+    // Submit test using vanilla JavaScript
+    const formData = new FormData();
+    formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+    selectedChoices.forEach(choiceId => {
+        formData.append('selected_choices', choiceId);
+    });
+    
+    fetch('/questions/' + currentQuestionId + '/test/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            displayTestResult(data);
+        } else {
+            showTestError(data.error || 'An error occurred while submitting your answer.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showTestError('Failed to submit answer. Please try again.');
+    });
+});
+
+// Test again functionality
+document.getElementById('testAgainBtn').addEventListener('click', function() {
+    if (currentQuestionData) {
+        displayQuestion(currentQuestionData);
+    }
+});
+
+// Reset modal when closed
+document.getElementById('testQuestionModal').addEventListener('hidden.bs.modal', function() {
+    currentQuestionId = null;
+    currentQuestionData = null;
+    hideTestError();
+});
+</script>
+{% endblock %}

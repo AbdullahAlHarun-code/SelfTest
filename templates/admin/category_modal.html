@@ -1,0 +1,60 @@
+<!-- Add/Edit Category Modal -->
+{% load taxi_extras %}
+<div class="modal fade" id="addCategoryModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="categoryModalLabel">
+                    <i class="fas fa-plus me-2"></i>Add New Category
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" id="categoryForm" action="{% url 'category_create' %}">
+                <div class="modal-body">
+                    {% csrf_token %}
+                    <input type="hidden" id="categoryId" name="category_id" value="">
+                    
+                    <div class="mb-3">
+                        <label for="categoryName" class="form-label">Category Name *</label>
+                        <input type="text" class="form-control" id="categoryName" name="name" required>
+                        <div class="form-text">Enter a unique category name</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="parentCategory" class="form-label">Parent Category</label>
+                        <select class="form-select" id="parentCategory" name="parent">
+                            <option value="">-- Root Category --</option>
+                            {% for category in all_categories %}
+                                <option value="{{ category.id }}">
+                                    {{ category.get_level|category_indent }} {{ category.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <div class="form-text">Select a parent category to create a subcategory</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="categoryDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="categoryDescription" name="description" rows="3"></textarea>
+                        <div class="form-text">Optional description for the category</div>
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="categoryActive" name="is_active" checked>
+                        <label class="form-check-label" for="categoryActive">
+                            Active Category
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save me-2"></i>Save Category
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
