@@ -1504,3 +1504,11 @@ WARNING 2025-07-07 19:13:03,508 log 17504 10820 Not Found: /.well-known/appspeci
 WARNING 2025-07-07 23:22:15,519 log 17504 19352 Not Found: /.well-known/appspecific/com.chrome.devtools.json
 INFO 2025-07-08 12:33:06,611 autoreload 17504 13936 C:\wamp64\www\TaxiExamTest\SelfTest\taxi\models.py changed, reloading.
 INFO 2025-07-08 12:33:09,147 autoreload 15520 10152 Watching for file changes with StatReloader
+WARNING 2025-07-08 12:33:30,776 log 15520 6520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-08 12:33:34,037 log 15520 6520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-08 12:33:36,924 log 15520 6520 Not Found: /favicon.ico
+WARNING 2025-07-08 12:33:52,140 log 15520 2368 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-08 12:34:23,503 log 15520 6520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-08 12:34:50,499 log 15520 6520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-08 12:35:13,457 log 15520 6520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-08 12:36:11,877 log 15520 6520 Not Found: /.well-known/appspecific/com.chrome.devtools.json
