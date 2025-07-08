@@ -1,0 +1,74 @@
+{% load static %}
+
+<div class="accordion-item">
+    <h2 class="accordion-header" id="category-heading-{{ category.id }}">
+        <div class="d-flex w-100">
+            <!-- If it has subcategories, show collapse button -->
+            {% if category.subcategories %}
+                <button class="accordion-button {% if not category.has_questions and not category.has_subcategory_with_questions %}disabled{% endif %} {% if forloop.counter > 1 %}collapsed{% endif %}" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#category-collapse-{{ category.id }}" 
+                        aria-expanded="{% if forloop.counter == 1 %}true{% else %}false{% endif %}" 
+                        aria-controls="category-collapse-{{ category.id }}">
+                    <div class="d-flex justify-content-between w-100 align-items-center">
+                        <div>
+                            <span class="ms-{{ category.level|default:0|add:1 }}">{{ category.name }}</span>
+                            {% if category.has_questions %}
+                                <span class="badge bg-primary ms-2">{{ category.questions_count }} questions</span>
+                            {% elif category.has_subcategory_with_questions %}
+                                <span class="badge bg-info ms-2">Questions in subcategories</span>
+                            {% endif %}
+                        </div>
+                        
+                        {% if category.has_questions %}
+                        <a href="{% url 'start_mock_test' category_id=category.id %}" 
+                           class="btn btn-sm btn-primary me-3" 
+                           onclick="event.stopPropagation();">
+                            <i class="fas fa-play me-1"></i> Start Test
+                        </a>
+                        {% else %}
+                        <span class="badge bg-secondary me-3">No Questions</span>
+                        {% endif %}
+                    </div>
+                </button>
+            {% else %}
+                <!-- If it has no subcategories, just show as a button -->
+                <div class="accordion-button no-collapse {% if not category.has_questions %}disabled{% endif %}">
+                    <div class="d-flex justify-content-between w-100 align-items-center">
+                        <div>
+                            <span class="ms-{{ category.level|default:0|add:1 }}">{{ category.name }}</span>
+                            {% if category.has_questions %}
+                                <span class="badge bg-primary ms-2">{{ category.questions_count }} questions</span>
+                            {% endif %}
+                        </div>
+                        
+                        {% if category.has_questions %}
+                        <a href="{% url 'start_mock_test' category_id=category.id %}" 
+                           class="btn btn-sm btn-primary">
+                            <i class="fas fa-play me-1"></i> Start Test
+                        </a>
+                        {% else %}
+                        <span class="badge bg-secondary">No Questions</span>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </h2>
+    
+    {% if category.subcategories %}
+    <div id="category-collapse-{{ category.id }}" 
+         class="accordion-collapse collapse {% if forloop.counter == 1 %}show{% endif %}" 
+         aria-labelledby="category-heading-{{ category.id }}" 
+         data-bs-parent="#categoryAccordion-{{ category.level|default:0 }}">
+        <div class="accordion-body p-0 pt-2">
+            <div class="accordion" id="categoryAccordion-{{ category.level|default:0|add:1 }}">
+                {% for subcategory in category.subcategories %}
+                    {% include 'exam/category_tree_item.html' with category=subcategory %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>

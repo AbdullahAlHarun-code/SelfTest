@@ -20,6 +20,34 @@
                     Questions
                 </a>
             </li>
+            
+            <!-- Exam Menu -->
+            <li class="nav-item">
+                <a class="nav-link d-flex justify-content-between align-items-center {% if 'mock_test' in request.resolver_match.url_name or 'start_mock_test' in request.resolver_match.url_name or 'take_mock_test' in request.resolver_match.url_name %}active{% endif %}" 
+                   href="#examSubmenu" 
+                   data-bs-toggle="collapse" 
+                   aria-expanded="{% if 'mock_test' in request.resolver_match.url_name or 'user_results' in request.resolver_match.url_name or 'user_report' in request.resolver_match.url_name %}true{% else %}false{% endif %}">
+                    <span><i class="fas fa-file-alt me-2"></i>Exam</span>
+                    <i class="fas fa-angle-down"></i>
+                </a>
+                <ul class="collapse {% if 'mock_test' in request.resolver_match.url_name or 'user_results' in request.resolver_match.url_name or 'user_report' in request.resolver_match.url_name %}show{% endif %}" id="examSubmenu">
+                    <li>
+                        <a class="nav-link ps-4 {% if 'mock_test' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'mock_test_categories' %}">
+                            <i class="fas fa-play-circle me-2"></i>Mock Test
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link ps-4 {% if request.resolver_match.url_name == 'user_results' %}active{% endif %}" href="{% url 'user_results' %}">
+                            <i class="fas fa-chart-bar me-2"></i>Results
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link ps-4 {% if request.resolver_match.url_name == 'user_report' %}active{% endif %}" href="{% url 'user_report' %}">
+                            <i class="fas fa-file-invoice me-2"></i>Report
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
         
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">

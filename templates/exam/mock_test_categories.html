@@ -1,0 +1,58 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Taxi Exam{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-play-circle me-2"></i>Mock Test Categories</h2>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Select a category to start a mock test</h5>
+                </div>
+                <div class="card-body">
+                    {% if not category_tree %}
+                        <div class="alert alert-info">
+                            No categories with questions found. Please add questions to categories before taking a mock test.
+                        </div>
+                    {% endif %}
+                    
+                    {% if category_tree %}
+                    <div class="mb-4">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i> Select a category to start a mock test. Categories with no questions are disabled.
+                        </div>
+                    </div>
+                    
+                    <div class="accordion" id="categoryAccordion">
+                        {% for category in category_tree %}
+                            {% include 'exam/category_tree_item.html' with category=category index=forloop.counter %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .category-card {
+        transition: all 0.3s;
+        cursor: pointer;
+        border: 1px solid #ddd;
+    }
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        border-color: #0d6efd;
+    }
+</style>
+{% endblock %}
