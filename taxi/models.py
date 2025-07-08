@@ -93,6 +93,70 @@ class Question(models.Model):
         
         return stats
 
+    def update_mark_category(self, user):
+        """Update the mark category based on user's success rate for this question"""
+        try:
+            # Get user's test statistics for this question
+            stats = self.get_test_stats(user)
+            success_rate = stats['success_rate']
+            
+            print(f"DEBUG: Question {self.id} - User {user.username} - Success rate: {success_rate}%")
+            print(f"DEBUG: Stats: {stats}")
+            
+            # Only update if there are test results
+            if stats['total_tests'] == 0:
+                print(f"DEBUG: No test results for question {self.id}")
+                return None
+            
+            # Get the main mark category
+            mark_category = Category.objects.filter(name='mark', parent__isnull=True).first()
+            if not mark_category:
+                print(f"DEBUG: Mark category not found!")
+                return None
+            
+            print(f"DEBUG: Found mark category: {mark_category.name}")
+            
+            # Determine which subcategory based on success rate
+            if success_rate < 70:
+                target_subcategory_name = 'Below 70%'
+            elif success_rate < 80:
+                target_subcategory_name = '70% but below 80%'
+            elif success_rate < 90:
+                target_subcategory_name = '80% but below 90%'
+            else:
+                target_subcategory_name = '90% and over'
+            
+            print(f"DEBUG: Target subcategory: {target_subcategory_name}")
+            
+            # Get the target subcategory
+            target_subcategory = Category.objects.filter(
+                name=target_subcategory_name,
+                parent=mark_category
+            ).first()
+            
+            if not target_subcategory:
+                print(f"DEBUG: Target subcategory '{target_subcategory_name}' not found!")
+                return None
+            
+            print(f"DEBUG: Found target subcategory: {target_subcategory.name}")
+            
+            # Remove any existing mark subcategories from this question
+            existing_mark_subcategories = self.categories.filter(parent=mark_category)
+            if existing_mark_subcategories.exists():
+                print(f"DEBUG: Removing existing mark subcategories: {[cat.name for cat in existing_mark_subcategories]}")
+                self.categories.remove(*existing_mark_subcategories)
+            
+            # Add the new mark subcategory
+            print(f"DEBUG: Adding new mark subcategory: {target_subcategory.name}")
+            self.categories.add(target_subcategory)
+            
+            print(f"DEBUG: Successfully updated mark category for question {self.id}")
+            return target_subcategory
+            
+        except Exception as e:
+            print(f"Error updating mark category: {e}")
+            return None
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='choices')

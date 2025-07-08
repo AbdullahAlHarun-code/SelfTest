@@ -442,8 +442,14 @@ def question_test(request, question_id):
                 # Try to get updated stats
                 try:
                     stats = question.get_test_stats(request.user)
+                    
+                    # Update mark category based on success rate
+                    updated_category = question.update_mark_category(request.user)
+                    if updated_category:
+                        print(f"Updated mark category for question {question.id} to: {updated_category.name}")
+                    
                 except Exception as stats_error:
-                    print(f"Error getting stats: {stats_error}")
+                    print(f"Error getting stats or updating mark category: {stats_error}")
                     # Continue with default stats
             
             # Prepare response data with complete question information

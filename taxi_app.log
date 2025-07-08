@@ -1469,3 +1469,38 @@ INFO 2025-07-07 14:44:48,240 autoreload 9336 19340 G:\MyCode\App Taxi Exam\taxi\
 INFO 2025-07-07 14:44:49,160 autoreload 17412 21560 Watching for file changes with StatReloader
 INFO 2025-07-07 14:59:33,887 autoreload 17412 21560 G:\MyCode\App Taxi Exam\taxi\views.py changed, reloading.
 INFO 2025-07-07 14:59:35,703 autoreload 15084 23728 Watching for file changes with StatReloader
+INFO 2025-07-07 18:24:12,820 autoreload 19272 15584 Watching for file changes with StatReloader
+WARNING 2025-07-07 18:24:19,050 log 19272 1972 Not Found: /accounts/login/
+WARNING 2025-07-07 18:24:22,693 log 19272 1972 Not Found: /favicon.ico
+INFO 2025-07-07 18:25:33,373 autoreload 13808 16832 Watching for file changes with StatReloader
+WARNING 2025-07-07 18:25:38,254 log 13808 13376 Not Found: /accounts/login/
+WARNING 2025-07-07 18:25:59,333 log 13808 13376 Not Found: /accounts/login/
+WARNING 2025-07-07 18:26:13,180 log 13808 11308 Not Found: /accounts/login/
+INFO 2025-07-07 18:27:39,458 autoreload 13808 16832 C:\wamp64\www\TaxiExamTest\SelfTest\taxi_project\settings.py changed, reloading.
+INFO 2025-07-07 18:27:42,155 autoreload 13172 19364 Watching for file changes with StatReloader
+WARNING 2025-07-07 18:27:50,689 log 13172 13352 Not Found: /accounts/login/
+INFO 2025-07-07 18:27:59,333 autoreload 13172 19364 C:\wamp64\www\TaxiExamTest\SelfTest\taxi_project\settings.py changed, reloading.
+INFO 2025-07-07 18:28:01,227 autoreload 13532 9400 Watching for file changes with StatReloader
+WARNING 2025-07-07 18:28:06,031 log 13532 17700 Not Found: /accounts/login/
+INFO 2025-07-07 18:54:55,745 autoreload 13532 9400 C:\wamp64\www\TaxiExamTest\SelfTest\taxi\models.py changed, reloading.
+INFO 2025-07-07 18:54:58,769 autoreload 15700 16844 Watching for file changes with StatReloader
+INFO 2025-07-07 18:55:09,074 autoreload 15700 16844 C:\wamp64\www\TaxiExamTest\SelfTest\taxi\views.py changed, reloading.
+INFO 2025-07-07 18:55:11,839 autoreload 9896 8256 Watching for file changes with StatReloader
+INFO 2025-07-07 18:57:18,753 autoreload 9896 8256 C:\wamp64\www\TaxiExamTest\SelfTest\taxi\views.py changed, reloading.
+INFO 2025-07-07 18:57:21,567 autoreload 13076 8776 Watching for file changes with StatReloader
+WARNING 2025-07-07 19:09:15,064 log 13076 10404 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 19:09:27,741 log 13076 10404 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+INFO 2025-07-07 19:10:36,484 autoreload 13076 8776 C:\wamp64\www\TaxiExamTest\SelfTest\taxi\models.py changed, reloading.
+INFO 2025-07-07 19:10:38,502 autoreload 17120 4840 Watching for file changes with StatReloader
+INFO 2025-07-07 19:10:45,013 autoreload 17120 4840 C:\wamp64\www\TaxiExamTest\SelfTest\taxi\models.py changed, reloading.
+INFO 2025-07-07 19:10:46,573 autoreload 17504 13936 Watching for file changes with StatReloader
+WARNING 2025-07-07 19:11:04,074 log 17504 10820 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 19:11:13,680 log 17504 10820 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 19:11:26,136 log 17504 10820 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 19:11:57,173 log 17504 10820 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 19:12:41,872 log 17504 10820 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 19:12:55,133 log 17504 10820 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 19:13:03,508 log 17504 10820 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-07-07 23:22:15,519 log 17504 19352 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+INFO 2025-07-08 12:33:06,611 autoreload 17504 13936 C:\wamp64\www\TaxiExamTest\SelfTest\taxi\models.py changed, reloading.
+INFO 2025-07-08 12:33:09,147 autoreload 15520 10152 Watching for file changes with StatReloader
