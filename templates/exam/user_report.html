@@ -1,0 +1,217 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Taxi Exam{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-file-invoice me-2"></i>My Performance Report</h2>
+        <div>
+            <a href="{% url 'user_results' %}" class="btn btn-outline-primary me-2">
+                <i class="fas fa-chart-bar me-2"></i>View Results
+            </a>
+            <a href="{% url 'mock_test_categories' %}" class="btn btn-primary">
+                <i class="fas fa-play-circle me-2"></i>Take New Test
+            </a>
+        </div>
+    </div>
+    
+    <!-- Category Performance -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Performance by Category</h5>
+                </div>
+                <div class="card-body">
+                    {% if categories_data %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Tests Taken</th>
+                                        <th>Questions</th>
+                                        <th>Correct</th>
+                                        <th>Score</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for category in categories_data %}
+                                        <tr>
+                                            <td>{{ category.name }}</td>
+                                            <td>{{ category.exam_count }}</td>
+                                            <td>{{ category.total_questions }}</td>
+                                            <td>{{ category.total_correct }}</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if category.avg_score >= 80 %}bg-success{% elif category.avg_score >= 70 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ category.avg_score }}%;" 
+                                                         aria-valuenow="{{ category.avg_score }}" 
+                                                         aria-valuemin="0" 
+                                                         aria-valuemax="100">
+                                                        {{ category.avg_score }}%
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {% if category.avg_score >= 90 %}
+                                                    <span class="badge bg-success">Excellent</span>
+                                                {% elif category.avg_score >= 80 %}
+                                                    <span class="badge bg-info">Good</span>
+                                                {% elif category.avg_score >= 70 %}
+                                                    <span class="badge bg-warning">Satisfactory</span>
+                                                {% else %}
+                                                    <span class="badge bg-danger">Needs Improvement</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            You haven't completed any tests yet. 
+                            <a href="{% url 'mock_test_categories' %}" class="alert-link">
+                                Start your first test now!
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Question Mark Categories -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Question Performance Analysis</h5>
+                </div>
+                <div class="card-body">
+                    {% if mark_subcategories %}
+                        <div class="row mb-4">
+                            <div class="col-md-8 offset-md-2">
+                                <div class="chart-container">
+                                    <canvas id="markChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Question Count</th>
+                                        <th>Recommendation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for mark in mark_subcategories %}
+                                        <tr>
+                                            <td>
+                                                <span class="badge 
+                                                    {% if mark.name == 'Below 70%' %}bg-danger
+                                                    {% elif mark.name == '70% but below 80%' %}bg-warning
+                                                    {% elif mark.name == '80% but below 90%' %}bg-info
+                                                    {% else %}bg-success{% endif %}">
+                                                    {{ mark.name }}
+                                                </span>
+                                            </td>
+                                            <td>{{ mark.question_count }}</td>
+                                            <td>
+                                                {% if mark.name == 'Below 70%' %}
+                                                    <span class="text-danger">
+                                                        <i class="fas fa-exclamation-triangle me-1"></i> Needs significant improvement. Focus on studying these questions.
+                                                    </span>
+                                                {% elif mark.name == '70% but below 80%' %}
+                                                    <span class="text-warning">
+                                                        <i class="fas fa-exclamation-circle me-1"></i> Needs practice. Review these questions regularly.
+                                                    </span>
+                                                {% elif mark.name == '80% but below 90%' %}
+                                                    <span class="text-info">
+                                                        <i class="fas fa-info-circle me-1"></i> Good performance. Occasional review recommended.
+                                                    </span>
+                                                {% else %}
+                                                    <span class="text-success">
+                                                        <i class="fas fa-check-circle me-1"></i> Excellent performance. Keep up the good work!
+                                                    </span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            No performance data available yet. Complete more tests to see your performance analysis.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if mark_subcategories %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('markChart').getContext('2d');
+        
+        // Prepare data for the chart
+        const labels = [];
+        const data = [];
+        const backgroundColors = [];
+        
+        {% for mark in mark_subcategories %}
+            labels.push("{{ mark.name }}");
+            data.push({{ mark.question_count }});
+            
+            {% if mark.name == 'Below 70%' %}
+                backgroundColors.push('#dc3545'); // danger
+            {% elif mark.name == '70% but below 80%' %}
+                backgroundColors.push('#ffc107'); // warning
+            {% elif mark.name == '80% but below 90%' %}
+                backgroundColors.push('#0dcaf0'); // info
+            {% else %}
+                backgroundColors.push('#198754'); // success
+            {% endif %}
+        {% endfor %}
+        
+        const markChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Question Performance Distribution'
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endif %}
+{% endblock %}

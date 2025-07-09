@@ -1,0 +1,45 @@
+{% load static %}
+
+<div class="category-item category-level-{{ level }} {% if not category.has_questions and not category.has_subcategory_with_questions %}disabled{% endif %}">
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+            {% if category.has_questions %}
+                <input type="checkbox" 
+                       class="form-check-input category-checkbox" 
+                       name="selected_categories" 
+                       value="{{ category.id }}"
+                       data-category-name="{{ category.name }}"
+                       data-questions-count="{{ category.questions_count }}"
+                       id="category-{{ category.id }}">
+            {% else %}
+                <input type="checkbox" 
+                       class="form-check-input category-checkbox" 
+                       disabled
+                       id="category-{{ category.id }}">
+            {% endif %}
+            
+            <label for="category-{{ category.id }}" class="category-name ms-2 {% if not category.has_questions and not category.has_subcategory_with_questions %}text-muted{% endif %}">
+                {{ category.name }}
+            </label>
+        </div>
+        
+        <div class="d-flex align-items-center">
+            {% if category.has_questions %}
+                <span class="badge bg-primary questions-badge">{{ category.questions_count }} questions</span>
+            {% elif category.has_subcategory_with_questions %}
+                <span class="badge bg-info questions-badge">Has subcategories with questions</span>
+            {% else %}
+                <span class="badge bg-secondary questions-badge">No questions</span>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Show subcategories -->
+    {% if category.subcategories %}
+        <div class="subcategories mt-2">
+            {% for subcategory in category.subcategories %}
+                {% include 'exam/category_multi_select_item.html' with category=subcategory level=level|add:1 %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,524 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Taxi Exam{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-play-circle me-2"></i>Mock Test - Smart Category Selection</h2>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg">
+                <div class="card-header bg-gradient-primary text-white">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-layer-group me-2"></i>Select Categories for Your Mock Test
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    
+                    <!-- Instructions -->
+                    <div class="alert alert-info mb-4">
+                        <h6><i class="fas fa-lightbulb me-2"></i>Smart Category Selection:</h6>
+                        <ul class="mb-0">
+                            <li>Select from cascading dropdowns with search functionality</li>
+                            <li>Choose main category first, then subcategories will automatically load</li>
+                            <li>You can select multiple categories at any level</li>
+                            <li>Categories without questions are automatically filtered out</li>
+                        </ul>
+                    </div>
+                    
+                    <form method="post" id="mockTestForm">
+                        {% csrf_token %}
+                        
+                        <!-- Dynamic Category Selection -->
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <label for="mainCategory" class="form-label fw-bold">
+                                    <i class="fas fa-folder me-1"></i>Main Category
+                                </label>
+                                <select id="mainCategory" class="form-select category-select" data-level="1">
+                                    <option value="">Select Main Category...</option>
+                                </select>
+                                <div class="form-text">
+                                    <span id="mainCategoryInfo" class="text-muted"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="subCategory" class="form-label fw-bold">
+                                    <i class="fas fa-folder-open me-1"></i>Sub Category
+                                </label>
+                                <select id="subCategory" class="form-select category-select" data-level="2" disabled>
+                                    <option value="">Select Sub Category...</option>
+                                </select>
+                                <div class="form-text">
+                                    <span id="subCategoryInfo" class="text-muted"></span>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <label for="subSubCategory" class="form-label fw-bold">
+                                    <i class="fas fa-file-alt me-1"></i>Sub Sub Category
+                                </label>
+                                <select id="subSubCategory" class="form-select category-select" data-level="3" disabled>
+                                    <option value="">Select Sub Sub Category...</option>
+                                </select>
+                                <div class="form-text">
+                                    <span id="subSubCategoryInfo" class="text-muted"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Add Category Button -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <button type="button" id="addCategoryBtn" class="btn btn-outline-primary" disabled>
+                                    <i class="fas fa-plus me-2"></i>Add Selected Category
+                                </button>
+                                <small class="text-muted ms-3">Select a category above and click to add it to your test</small>
+                            </div>
+                        </div>
+                        
+                        <!-- Selected Categories Display -->
+                        <div class="mb-4">
+                            <h6 class="fw-bold mb-3">
+                                <i class="fas fa-check-circle me-2"></i>Selected Categories for Test:
+                            </h6>
+                            <div id="selectedCategoriesContainer" class="border rounded p-3 bg-light min-height-100">
+                                <div id="emptyState" class="text-center text-muted py-3">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    No categories selected yet. Use the dropdowns above to select and add categories.
+                                </div>
+                                <div id="selectedCategoriesList" class="d-none"></div>
+                            </div>
+                            
+                            <!-- Summary Info -->
+                            <div class="mt-3 d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="badge bg-info fs-6" id="totalCategoriesCount">0 Categories</span>
+                                    <span class="badge bg-success fs-6 ms-2" id="totalQuestionsCount">0 Questions</span>
+                                </div>
+                                <button type="button" id="clearAllBtn" class="btn btn-sm btn-outline-danger" disabled>
+                                    <i class="fas fa-trash me-1"></i>Clear All
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                            <button type="submit" id="startTestBtn" class="btn btn-success btn-lg px-5" disabled>
+                                <i class="fas fa-play me-2"></i>Start Mock Test
+                            </button>
+                        </div>
+                        
+                        <!-- Hidden inputs for selected categories -->
+                        <div id="hiddenInputs"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #007bff, #0056b3);
+    }
+    
+    .category-select {
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+    
+    .category-select:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .min-height-100 {
+        min-height: 100px;
+    }
+    
+    .selected-category-card {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .selected-category-card:hover {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        transform: translateY(-1px);
+    }
+    
+    .category-path {
+        color: #6c757d;
+        font-size: 0.9em;
+        margin-bottom: 5px;
+    }
+    
+    .category-name {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 5px;
+    }
+    
+    .questions-info {
+        color: #28a745;
+        font-size: 0.9em;
+    }
+    
+    .remove-category-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #dc3545;
+        color: white;
+        border: none;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .remove-category-btn:hover {
+        background: #c82333;
+        transform: scale(1.1);
+    }
+    
+    .category-level-badge {
+        font-size: 0.7em;
+        padding: 2px 6px;
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.3s ease-in;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .loading-spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // DOM elements
+    const mainCategory = document.getElementById('mainCategory');
+    const subCategory = document.getElementById('subCategory');
+    const subSubCategory = document.getElementById('subSubCategory');
+    const addCategoryBtn = document.getElementById('addCategoryBtn');
+    const selectedCategoriesList = document.getElementById('selectedCategoriesList');
+    const emptyState = document.getElementById('emptyState');
+    const startTestBtn = document.getElementById('startTestBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const hiddenInputs = document.getElementById('hiddenInputs');
+    const totalCategoriesCount = document.getElementById('totalCategoriesCount');
+    const totalQuestionsCount = document.getElementById('totalQuestionsCount');
+    
+    // State
+    let selectedCategories = [];
+    
+    // Info elements
+    const infoElements = {
+        mainCategory: document.getElementById('mainCategoryInfo'),
+        subCategory: document.getElementById('subCategoryInfo'),
+        subSubCategory: document.getElementById('subSubCategoryInfo')
+    };
+    
+    // Load initial main categories
+    loadCategories(mainCategory, null);
+    
+    // Event listeners
+    mainCategory.addEventListener('change', function() {
+        handleCategoryChange(this, subCategory, 'subCategory');
+        resetCategory(subSubCategory, 'subSubCategory');
+        updateAddButton();
+    });
+    
+    subCategory.addEventListener('change', function() {
+        handleCategoryChange(this, subSubCategory, 'subSubCategory');
+        updateAddButton();
+    });
+    
+    subSubCategory.addEventListener('change', function() {
+        updateAddButton();
+    });
+    
+    addCategoryBtn.addEventListener('click', addSelectedCategory);
+    clearAllBtn.addEventListener('click', clearAllCategories);
+    
+    // Functions
+    function loadCategories(selectElement, parentId) {
+        console.log('Loading categories for parent:', parentId);
+        showLoading(selectElement);
+        
+        const url = "{% url 'get_subcategories_ajax' %}" + (parentId ? `?parent_id=${parentId}` : '');
+        console.log('AJAX URL:', url);
+        
+        fetch(url)
+            .then(response => {
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text(); // Get as text first to see what we're receiving
+            })
+            .then(text => {
+                console.log('Raw response:', text);
+                try {
+                    const data = JSON.parse(text);
+                    console.log('Parsed data:', data);
+                    populateSelect(selectElement, data.subcategories);
+                } catch (e) {
+                    console.error('JSON parse error:', e);
+                    throw new Error('Invalid JSON response');
+                }
+                hideLoading(selectElement);
+            })
+            .catch(error => {
+                console.error('Detailed error loading categories:', error);
+                hideLoading(selectElement);
+                showError(selectElement, `Failed to load categories: ${error.message}`);
+            });
+    }
+    
+    function populateSelect(selectElement, categories) {
+        console.log('Populating select with categories:', categories);
+        const selectId = selectElement.id;
+        const defaultText = selectId === 'mainCategory' ? 'Select Main Category...' : 
+                           selectId === 'subCategory' ? 'Select Sub Category...' : 
+                           'Select Sub Sub Category...';
+        
+        selectElement.innerHTML = `<option value="">${defaultText}</option>`;
+        
+        if (categories && categories.length > 0) {
+            categories.forEach(category => {
+                if (category.has_questions || category.has_children) {
+                    const option = document.createElement('option');
+                    option.value = category.id;
+                    option.textContent = `${category.name} (${category.questions_count} questions)`;
+                    option.dataset.questionsCount = category.questions_count;
+                    option.dataset.hasChildren = category.has_children;
+                    selectElement.appendChild(option);
+                }
+            });
+        }
+        
+        selectElement.disabled = !categories || categories.length === 0;
+        console.log('Select populated, disabled:', selectElement.disabled);
+    }
+    
+    function handleCategoryChange(changedSelect, nextSelect, infoKey) {
+        const selectedOption = changedSelect.options[changedSelect.selectedIndex];
+        
+        if (changedSelect.value) {
+            // Update info
+            updateCategoryInfo(infoKey, selectedOption);
+            
+            // Load next level if the category has children
+            if (selectedOption.dataset.hasChildren === 'true') {
+                nextSelect.disabled = false;
+                loadCategories(nextSelect, changedSelect.value);
+            } else {
+                nextSelect.disabled = true;
+                resetCategory(nextSelect, getNextInfoKey(infoKey));
+            }
+        } else {
+            // Clear info and next level
+            updateCategoryInfo(infoKey, null);
+            resetCategory(nextSelect, getNextInfoKey(infoKey));
+        }
+    }
+    
+    function resetCategory(selectElement, infoKey) {
+        selectElement.innerHTML = '<option value="">Select...</option>';
+        selectElement.disabled = true;
+        if (infoKey) updateCategoryInfo(infoKey, null);
+    }
+    
+    function updateCategoryInfo(key, option) {
+        const infoElement = infoElements[key];
+        if (option && option.value) {
+            infoElement.textContent = `${option.dataset.questionsCount} questions available`;
+            infoElement.className = 'text-success';
+        } else {
+            infoElement.textContent = '';
+            infoElement.className = 'text-muted';
+        }
+    }
+    
+    function getNextInfoKey(currentKey) {
+        const keys = ['mainCategory', 'subCategory', 'subSubCategory'];
+        const currentIndex = keys.indexOf(currentKey);
+        return currentIndex < keys.length - 1 ? keys[currentIndex + 1] : null;
+    }
+    
+    function updateAddButton() {
+        const hasSelection = mainCategory.value || subCategory.value || subSubCategory.value;
+        addCategoryBtn.disabled = !hasSelection;
+    }
+    
+    function addSelectedCategory() {
+        const categoryToAdd = getDeepestSelectedCategory();
+        if (!categoryToAdd) return;
+        
+        // Check if already selected
+        const isAlreadySelected = selectedCategories.some(cat => cat.id === categoryToAdd.id);
+        if (isAlreadySelected) {
+            alert('This category is already selected!');
+            return;
+        }
+        
+        // Add to selected categories
+        selectedCategories.push(categoryToAdd);
+        updateSelectedCategoriesDisplay();
+        clearCategorySelections();
+    }
+    
+    function getDeepestSelectedCategory() {
+        // Get the deepest selected category
+        if (subSubCategory.value) {
+            return createCategoryObject(subSubCategory, [mainCategory, subCategory, subSubCategory]);
+        } else if (subCategory.value) {
+            return createCategoryObject(subCategory, [mainCategory, subCategory]);
+        } else if (mainCategory.value) {
+            return createCategoryObject(mainCategory, [mainCategory]);
+        }
+        return null;
+    }
+    
+    function createCategoryObject(selectElement, pathElements) {
+        const option = selectElement.options[selectElement.selectedIndex];
+        const path = pathElements
+            .filter(el => el.value)
+            .map(el => el.options[el.selectedIndex].textContent.split(' (')[0])
+            .join(' > ');
+        
+        return {
+            id: parseInt(selectElement.value),
+            name: option.textContent.split(' (')[0],
+            questionsCount: parseInt(option.dataset.questionsCount),
+            path: path,
+            level: selectElement.dataset.level
+        };
+    }
+    
+    function clearCategorySelections() {
+        mainCategory.value = '';
+        resetCategory(subCategory, 'subCategory');
+        resetCategory(subSubCategory, 'subSubCategory');
+        updateCategoryInfo('mainCategory', null);
+        updateAddButton();
+    }
+    
+    function updateSelectedCategoriesDisplay() {
+        if (selectedCategories.length === 0) {
+            emptyState.classList.remove('d-none');
+            selectedCategoriesList.classList.add('d-none');
+            startTestBtn.disabled = true;
+            clearAllBtn.disabled = true;
+        } else {
+            emptyState.classList.add('d-none');
+            selectedCategoriesList.classList.remove('d-none');
+            
+            selectedCategoriesList.innerHTML = selectedCategories.map((category, index) => `
+                <div class="selected-category-card position-relative fade-in">
+                    <button type="button" class="remove-category-btn" onclick="removeCategory(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="category-path">
+                        <span class="category-level-badge badge bg-secondary">Level ${category.level}</span>
+                        ${category.path}
+                    </div>
+                    <div class="category-name">${category.name}</div>
+                    <div class="questions-info">
+                        <i class="fas fa-question-circle me-1"></i>
+                        ${category.questionsCount} questions
+                    </div>
+                </div>
+            `).join('');
+            
+            startTestBtn.disabled = false;
+            clearAllBtn.disabled = false;
+        }
+        
+        // Update counters
+        const totalQuestions = selectedCategories.reduce((sum, cat) => sum + cat.questionsCount, 0);
+        totalCategoriesCount.textContent = `${selectedCategories.length} Categories`;
+        totalQuestionsCount.textContent = `${totalQuestions} Questions`;
+        
+        // Update hidden inputs
+        updateHiddenInputs();
+    }
+    
+    function updateHiddenInputs() {
+        hiddenInputs.innerHTML = selectedCategories.map(category => 
+            `<input type="hidden" name="selected_categories" value="${category.id}">`
+        ).join('');
+    }
+    
+    function clearAllCategories() {
+        selectedCategories = [];
+        updateSelectedCategoriesDisplay();
+    }
+    
+    // Global function for remove buttons
+    window.removeCategory = function(index) {
+        selectedCategories.splice(index, 1);
+        updateSelectedCategoriesDisplay();
+    };
+    
+    function showLoading(selectElement) {
+        const selectId = selectElement.id;
+        const defaultText = selectId === 'mainCategory' ? 'Loading main categories...' : 
+                           selectId === 'subCategory' ? 'Loading subcategories...' : 
+                           'Loading sub-subcategories...';
+        
+        selectElement.innerHTML = `<option value="">${defaultText}</option>`;
+        selectElement.disabled = true;
+    }
+    
+    function hideLoading(selectElement) {
+        // Loading will be replaced by populateSelect
+    }
+    
+    function showError(selectElement, message) {
+        const selectId = selectElement.id;
+        selectElement.innerHTML = `<option value="">Error: ${message}</option>`;
+        selectElement.disabled = true;
+    }
+});
+</script>
+{% endblock %}

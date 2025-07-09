@@ -49,38 +49,73 @@ body {
     text-transform: uppercase;
 }
 
-main {
-    padding-top: 1rem;
+/* Submenu styles */
+#examSubmenu {
+    padding-left: 1rem;
 }
 
-.card {
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-    border: 1px solid rgba(0, 0, 0, 0.125);
+#examSubmenu .nav-link {
+    padding-left: 1.5rem;
+    font-size: 0.85rem;
 }
 
-.table th {
-    border-top: none;
+/* Exam module styles */
+.category-card {
+    transition: all 0.3s;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: #0d6efd;
+}
+
+.question-text {
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.choice-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.choice-card:hover {
+    background-color: #f8f9fa;
+    border-color: #0d6efd;
+}
+
+.form-check-input:checked + .choice-text {
     font-weight: 600;
 }
 
-.btn-group-sm > .btn, .btn-sm {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
+/* Progress styles */
+.progress {
+    height: 1.5rem;
 }
 
-.modal-header {
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
+.progress-bar {
+    line-height: 1.5rem;
+    font-weight: 500;
 }
 
-.alert {
-    border: none;
-    border-radius: 0.5rem;
+/* Question number badge */
+.question-number {
+    margin-right: 10px;
 }
 
-.navbar-brand {
+/* Mock test result styles */
+.score-display {
+    font-size: 3rem;
     font-weight: bold;
-    font-size: 1.25rem;
+}
+
+.chart-container {
+    height: 300px;
+    margin-bottom: 2rem;
 }
 
 /* Custom scrollbar for sidebar */
@@ -121,3 +156,44 @@ main {
 .category-indent-2 { margin-left: 2rem; }
 .category-indent-3 { margin-left: 3rem; }
 .category-indent-4 { margin-left: 4rem; }
+
+/* Category tree styles for exam */
+.accordion-button.no-collapse::after {
+    display: none;
+}
+
+.accordion-button.disabled {
+    color: #6c757d;
+    cursor: not-allowed;
+    background-color: #f8f9fa;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #e7f3ff;
+    color: #0d6efd;
+}
+
+.accordion .accordion {
+    margin-left: 1rem;
+}
+
+.accordion-body {
+    padding-left: 1rem;
+}
+
+/* Hierarchical indentation for nested categories */
+.ms-1 { margin-left: 0.5rem !important; }
+.ms-2 { margin-left: 1rem !important; }
+.ms-3 { margin-left: 1.5rem !important; }
+.ms-4 { margin-left: 2rem !important; }
+.ms-5 { margin-left: 2.5rem !important; }
+.ms-6 { margin-left: 3rem !important; }
+.ms-7 { margin-left: 3.5rem !important; }
+.ms-8 { margin-left: 4rem !important; }
+.ms-9 { margin-left: 4.5rem !important; }
+.ms-10 { margin-left: 5rem !important; }
+
+/* Category count badge */
+.badge {
+    font-weight: normal;
+}

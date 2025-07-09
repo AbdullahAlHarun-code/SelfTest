@@ -184,3 +184,61 @@ class QuestionTestResult(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - Question {self.question.id} - {'Correct' if self.is_correct else 'Incorrect'}"
+
+
+class MockExam(models.Model):
+    """Represents a mock exam session"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='mock_exams')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='mock_exams')
+    start_time = models.DateTimeField(auto_now_add=True)
+    end_time = models.DateTimeField(null=True, blank=True)
+    total_questions = models.IntegerField(default=0)
+    correct_answers = models.IntegerField(default=0)
+    completed = models.BooleanField(default=False)
+    
+    class Meta:
+        ordering = ['-start_time']
+        
+    def __str__(self):
+        status = "Completed" if self.completed else "In Progress"
+        return f"{self.user.username} - {self.category.name} - {status}"
+    
+    @property
+    def score_percentage(self):
+        """Calculate the percentage score for this mock exam"""
+        if self.total_questions == 0:
+            return 0
+        return round((self.correct_answers / self.total_questions) * 100, 1)
+    
+    @property
+    def duration(self):
+        """Calculate the duration of the mock exam"""
+        if not self.end_time:
+            return None
+        
+        duration = self.end_time - self.start_time
+        # Format as hours:minutes:seconds
+        total_seconds = int(duration.total_seconds())
+        hours = total_seconds // 3600
+        minutes = (total_seconds % 3600) // 60
+        seconds = total_seconds % 60
+        
+        if hours > 0:
+            return f"{hours}h {minutes}m {seconds}s"
+        return f"{minutes}m {seconds}s"
+
+
+class MockExamQuestion(models.Model):
+    """Individual questions in a mock exam"""
+    mock_exam = models.ForeignKey(MockExam, on_delete=models.CASCADE, related_name='exam_questions')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    order = models.IntegerField()  # Position in the exam sequence
+    selected_choices = models.ManyToManyField(Choice, blank=True, related_name='selected_in_mock_exams')
+    is_correct = models.BooleanField(null=True, blank=True)  # Null if not answered yet
+    
+    class Meta:
+        ordering = ['order']
+        unique_together = ('mock_exam', 'order')  # Ensure questions have unique ordering
+    
+    def __str__(self):
+        return f"Exam #{self.mock_exam.id} - Q{self.order}: {self.question.question_text[:50]}..."

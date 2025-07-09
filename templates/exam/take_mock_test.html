@@ -1,0 +1,110 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Taxi Exam{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-file-alt me-2"></i>Mock Test</h2>
+        <h5>Question {{ current_question }} of {{ total_questions }}</h5>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">{{ mock_exam.category.name }}</h5>
+                    <div>
+                        <span class="badge bg-light text-dark">
+                            {{ current_question }}/{{ total_questions }}
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="question-container mb-4">
+                            <h4 class="question-text">{{ question.question_text }}</h4>
+                            <p class="question-type text-muted">
+                                <small>
+                                    {% if question.question_type == 'single' %}
+                                        Select one correct answer
+                                    {% else %}
+                                        Select all correct answers
+                                    {% endif %}
+                                </small>
+                            </p>
+                        </div>
+                        
+                        <div class="choices-container">
+                            {% for choice in choices %}
+                                <div class="form-check mb-3 p-0">
+                                    <div class="choice-card">
+                                        <label class="w-100 p-3" for="choice_{{ choice.id }}">
+                                            {% if question.question_type == 'single' %}
+                                                <input type="radio" name="selected_choices" value="{{ choice.id }}" 
+                                                       id="choice_{{ choice.id }}" class="form-check-input me-2" required>
+                                            {% else %}
+                                                <input type="checkbox" name="selected_choices" value="{{ choice.id }}" 
+                                                       id="choice_{{ choice.id }}" class="form-check-input me-2">
+                                            {% endif %}
+                                            <span class="choice-text">{{ choice.choice_text }}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            {% if current_question > 1 %}
+                                <a href="{% url 'take_mock_test' exam_id=mock_exam.id question_number=current_question|add:"-1" %}" 
+                                   class="btn btn-outline-primary">
+                                    <i class="fas fa-arrow-left me-2"></i>Previous
+                                </a>
+                            {% else %}
+                                <div></div>
+                            {% endif %}
+                            
+                            <button type="submit" class="btn btn-primary">
+                                {% if current_question == total_questions %}
+                                    Submit Answer & Complete Test
+                                {% else %}
+                                    Submit Answer & Next
+                                {% endif %}
+                                <i class="fas fa-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .question-text {
+        margin-bottom: 1rem;
+        font-weight: 500;
+    }
+    .choice-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+    .choice-card:hover {
+        background-color: #f8f9fa;
+        border-color: #0d6efd;
+    }
+    .form-check-input:checked + .choice-text {
+        font-weight: 600;
+    }
+    .form-check-input:checked ~ .choice-card {
+        background-color: #e9f0ff;
+        border-color: #0d6efd;
+    }
+</style>
+{% endblock %}

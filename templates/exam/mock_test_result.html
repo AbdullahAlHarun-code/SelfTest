@@ -1,0 +1,135 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{{ title }} | Taxi Exam{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="fas fa-chart-bar me-2"></i>Test Results</h2>
+        <a href="{% url 'user_results' %}" class="btn btn-outline-primary">
+            <i class="fas fa-history me-2"></i>All Results
+        </a>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{{ mock_exam.category.name }} - Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex flex-column align-items-center p-4 border rounded bg-light h-100">
+                                <div class="display-4 mb-2 {% if score_percentage >= 80 %}text-success{% elif score_percentage >= 70 %}text-warning{% else %}text-danger{% endif %}">
+                                    {{ score_percentage }}%
+                                </div>
+                                <div class="text-muted">Score</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex flex-column align-items-center p-4 border rounded bg-light h-100">
+                                <div class="display-4 mb-2 text-primary">
+                                    {{ correct_answers }}/{{ total_questions }}
+                                </div>
+                                <div class="text-muted">Correct Answers</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="d-flex flex-column align-items-center p-4 border rounded bg-light h-100">
+                                <div class="display-4 mb-2 text-primary">
+                                    {{ mock_exam.duration }}
+                                </div>
+                                <div class="text-muted">Time Taken</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="{% url 'mock_test_categories' %}" class="btn btn-primary">
+                            <i class="fas fa-play-circle me-2"></i>Take Another Test
+                        </a>
+                        <a href="{% url 'user_report' %}" class="btn btn-outline-primary ms-2">
+                            <i class="fas fa-file-invoice me-2"></i>View Full Report
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Question Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Type</th>
+                                    <th>Your Answer</th>
+                                    <th>Correct Answer</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for exam_question in exam_questions %}
+                                    <tr>
+                                        <td>
+                                            <span class="question-number badge bg-secondary">{{ exam_question.order }}</span>
+                                            {{ exam_question.question.question_text|truncatechars:100 }}
+                                        </td>
+                                        <td>
+                                            {% if exam_question.question.question_type == 'single' %}
+                                                <span class="badge bg-info">Single</span>
+                                            {% else %}
+                                                <span class="badge bg-warning">Multiple</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% for choice in exam_question.selected_choices.all %}
+                                                <div class="mb-1">{{ choice.option_label }}. {{ choice.choice_text }}</div>
+                                            {% empty %}
+                                                <span class="text-muted">No answer</span>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% for choice in exam_question.question.choices.all %}
+                                                {% if choice.is_correct %}
+                                                    <div class="mb-1">{{ choice.option_label }}. {{ choice.choice_text }}</div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% if exam_question.is_correct %}
+                                                <span class="badge bg-success">Correct</span>
+                                            {% elif exam_question.is_correct is None %}
+                                                <span class="badge bg-secondary">Not Answered</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Incorrect</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .question-number {
+        margin-right: 10px;
+    }
+</style>
+{% endblock %}

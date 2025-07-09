@@ -1,0 +1,51 @@
+best create a menu like that 
+Exam 
+    - Mock Test
+    - Result 
+    - Report 
+in Mock test page 
+show all categories when i press any categories it will be start mock test exam
+model will be same whatever at the moment
+the questions will be come randomely 
+only thing put next question button
+when user press next question, next question will be come and previous button will be show in the same model
+
+when user attemp all questions which category user test 
+then result button will show result
+when user press show result, result will be show 
+and result will save in database even eveery single question success rate will be updated what previously did
+result page will be updated 
+and report page will assestments for the user which category or questions need to improve
+think you are a developer
+you know how will do that 
+if you need any further questions you can ask me 
+thanks
+
+----------------
+
+if i go to this link
+http://127.0.0.1:8000/exam/mock-test/start/1/
+i see this error 
+-----------
+now see http://127.0.0.1:8000/exam/mock-test/
+in this url you show only one category
+but i want all category, sub category, sub sub category 
+if any category does not have any questions 
+just disable it 
+think you are a senior developer 
+try best way 
+
+-----------------------------
+i see now area category have 237 questions when i press button start test 
+
+----------
+in mock test page 
+http://127.0.0.1:8000/exam/mock-test/
+first show please show all categories, sub categories, sub sub categories for display purpose where user can understand which categories are selected
+then html multiple select form for categories, sub categories, sub sub categories
+for example 
+Area, Sub Area, Sub Sub Area select form
+when i select Area, Sub Area, Sub Sub Area
+then i press start test button only selected categories questions will be come in the mock test
+
+then user can start mock test 
